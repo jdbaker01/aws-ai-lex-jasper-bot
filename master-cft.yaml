@@ -10,7 +10,7 @@ Parameters:
 
   GitHubRepo:
     Type: String
-    Default: aws-ai-tracking-bot
+    Default: aws-ai-lex-jasper-bot
     Description: The repo name of the sample service
     MinLength: 1
 
@@ -318,21 +318,22 @@ Resources:
                             commands:
                                 - echo "INFO pre_build cmds"
                                 - aws configure set region "$AWS_DEFAULT_REGION"
-                                - cd LexAppBuilder && npm install
-                                - npm install
+                                - # cd LexAppBuilder && npm install
+                                - # npm install
+                                - cd build-lex-bot
                         build:
                             commands:
                                 - echo "INFO build cmds"
                                 - pwd
                                 - env
-                                - node masterBuild.js --bootstrap-bucket ${ArtifactStore} --botname ${CleanStackName.CleanStackNameValue} --model LexAppBuilder/model/TrackingBotModel.json --region ${AWS::Region}
+                                - # node masterBuild.js --bootstrap-bucket ${ArtifactStore} --botname ${CleanStackName.CleanStackNameValue} --model LexAppBuilder/model/TrackingBotModel.json --region ${AWS::Region}
+                                - echo "Hello!"
                         post_build:
                             commands:
                                 - echo "INFO post_build cmds"
 
     CodePipeline:
         Type: AWS::CodePipeline::Pipeline
-        DependsOn: CognitoIdentityPool
         Properties:
             Name: !GetAtt CleanStackName.CleanStackNameValue
             ArtifactStore:
@@ -368,17 +369,6 @@ Resources:
                             Provider: CodeBuild
                         Configuration:
                             ProjectName: !Ref CodeBuild
-                        RunOrder: 1
-                      - Name: AndroidApp
-                        InputArtifacts:
-                            - Name: SourceOutput
-                        ActionTypeId:
-                            Category: Build
-                            Owner: AWS
-                            Version: 1
-                            Provider: CodeBuild
-                        Configuration:
-                            ProjectName: !Ref CodeBuildAndroidApk
                         RunOrder: 1
 
     CodePipelineRole:
@@ -424,7 +414,6 @@ Resources:
                                 - codebuild:StartBuild
                             Resource:
                                 - !GetAtt CodeBuild.Arn
-                                - !GetAtt CodeBuildAndroidApk.Arn
 
     PipelineCleanup:
         DependsOn: CodePipeline
