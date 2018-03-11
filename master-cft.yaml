@@ -280,8 +280,6 @@ Resources:
                             Resource:
                                 - !Sub "arn:aws:s3:::${ArtifactStore}"
                                 - !Sub "arn:aws:s3:::${ArtifactStore}/*"
-                                - !Sub "arn:aws:s3:::${WebAppBucketDashboard}"
-                                - !Sub "arn:aws:s3:::${WebAppBucketDashboard}/*"
 
     CodeBuild:
         Type: AWS::CodeBuild::Project
@@ -327,7 +325,7 @@ Resources:
                                 - echo "INFO build cmds"
                                 - pwd
                                 - env
-                                - node masterBuild.js --bootstrap-bucket ${ArtifactStore} --webapp-bucket-dashboard ${WebAppBucketDashboard} --botname ${CleanStackName.CleanStackNameValue} --model LexAppBuilder/model/TrackingBotModel.json --region ${AWS::Region}
+                                - node masterBuild.js --bootstrap-bucket ${ArtifactStore} --botname ${CleanStackName.CleanStackNameValue} --model LexAppBuilder/model/TrackingBotModel.json --region ${AWS::Region}
                         post_build:
                             commands:
                                 - echo "INFO post_build cmds"
@@ -453,7 +451,6 @@ Resources:
                             try:
                                 deleteStack("${CleanStackName.CleanStackNameValue}LexAppStack")
                                 deleteS3Bucket("${ArtifactStore}")
-                                deleteS3Bucket("${WebAppBucketDashboard}")
                             except Exception as e:
                                 print("Exception thrown: %s" % str(e))
                                 pass
@@ -521,8 +518,6 @@ Resources:
                             Resource:
                                 - !Sub "arn:aws:s3:::${ArtifactStore}"
                                 - !Sub "arn:aws:s3:::${ArtifactStore}/*"
-                                - !Sub "arn:aws:s3:::${WebAppBucketDashboard}"
-                                - !Sub "arn:aws:s3:::${WebAppBucketDashboard}/*"
                 - PolicyName: IAMDeleteAccess
                   PolicyDocument:
                       Version: 2012-10-17
