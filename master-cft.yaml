@@ -327,7 +327,7 @@ Resources:
                                 - pwd
                                 - env
                                 - # node masterBuild.js --bootstrap-bucket ${ArtifactStore} --botname ${CleanStackName.CleanStackNameValue} --model LexAppBuilder/model/TrackingBotModel.json --region ${AWS::Region}
-                                - echo "Hello there!!"
+                                - echo "Hello BTY"
                         post_build:
                             commands:
                                 - echo "INFO post_build cmds"
@@ -359,7 +359,7 @@ Resources:
                         RunOrder: 1
                 - Name: BuildDeploy
                   Actions:
-                      - Name: BotAndWebUi
+                      - Name: LexBot
                         InputArtifacts:
                             - Name: SourceOutput
                         ActionTypeId:
