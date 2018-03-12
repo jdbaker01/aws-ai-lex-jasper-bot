@@ -199,30 +199,6 @@ Resources:
                                 - iam:PassRole
                                 - iam:CreateServiceLinkedRole
                             Resource: "*"
-                - PolicyName: CognitoCreateRoleAccess
-                  PolicyDocument:
-                      Version: 2012-10-17
-                      Statement:
-                          - Effect: Allow
-                            Action:
-                                - cognito-identity:CreateIdentityPool
-                                - cognito-identity:DeleteIdentityPool
-                                - cognito-identity:ListIdentityPools
-                                - cognito-identity:SetIdentityPoolRoles
-                            Resource: "*"
-                - PolicyName: DynamoDBAccess
-                  PolicyDocument:
-                      Version: 2012-10-17
-                      Statement:
-                          - Effect: Allow
-                            Action:
-                                - dynamodb:CreateTable
-                                - dynamodb:DeleteTable
-                                - dynamodb:DescribeLimits
-                                - dynamodb:DescribeTable
-                                - dynamodb:ListTables
-                                - dynamodb:UpdateTable
-                            Resource: "*"
                 - PolicyName: LexAccess
                   PolicyDocument:
                       Version: 2012-10-17
@@ -285,7 +261,7 @@ Resources:
         Type: AWS::CodeBuild::Project
         Properties:
             Name: !GetAtt CleanStackName.CleanStackNameValue
-            Description: Used to build the Lex Bot and Web UI
+            Description: Used to build the Lex Bot
             ServiceRole: !GetAtt CodeBuildRole.Arn
             TimeoutInMinutes: 30
             Artifacts:
