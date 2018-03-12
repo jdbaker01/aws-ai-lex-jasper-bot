@@ -303,8 +303,8 @@ Resources:
                                 - pwd
                                 - env
                                 - # node masterBuild.js --bootstrap-bucket ${ArtifactStore} --botname ${CleanStackName.CleanStackNameValue} --model LexAppBuilder/model/TrackingBotModel.json --region ${AWS::Region}
-                                - echo "Hello!!!"
-                                - python test.py
+                                - echo "Hello!"
+                                - cd build-lex-bot && python test.py
                         post_build:
                             commands:
                                 - echo "INFO post_build cmds"
