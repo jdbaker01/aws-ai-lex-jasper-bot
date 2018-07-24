@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Compiling the Python code...
+      - python build-lex-bot/test.py
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - build-lex-bot/test.py
