@@ -5,10 +5,10 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Compiling the Python code...
-      - python build-lex-bot/test.py
+      - python test.py
   post_build:
     commands:
       - echo Build completed on `date`
 artifacts:
   files:
-    - build-lex-bot/test.py
+    - test.py
