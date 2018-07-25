@@ -1,6 +1,8 @@
 version: 0.2
 
 phases:
+  install:
+    pip install boto3
   build:
     commands:
       - echo Build started on `date`
