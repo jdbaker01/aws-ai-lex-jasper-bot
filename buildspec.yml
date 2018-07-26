@@ -7,11 +7,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - echo Compiling the Python code...
-      - python HelloWorld.py
-      - python test.py
-      - if aws lex-models get-slot-type --name CompareTest --slot-type-version '$LATEST' >>/dev/null 2>&1; then aws lex-models delete-slot-type --name CompareTest; sleep 60; fi
-      - aws lex-models put-slot-type --name CompareTest --cli-input-json file://CompareTest_slot.json
+      - sh delete-bot.sh
   post_build:
     commands:
       - echo Build completed on `date`
