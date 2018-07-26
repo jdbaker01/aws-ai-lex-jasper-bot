@@ -1,0 +1,210 @@
+{
+    "name": "TopX", 
+    "description": "Top five sales by dimension",
+    "sampleUtterances": [
+        "{Top} {count}", 
+        "{Top} {dimension}", 
+        "{Top} {count} {dimension}", 
+        "{Top} {count} {dimension} for {event_name}", 
+        "{Top} {count} {dimension} in {event_month}", 
+        "{Top} {count} {dimension} at {venue_name}", 
+        "{Top} {count} {dimension} in {venue_city}", 
+        "{Top} {count} {dimension} in {venue_state}", 
+        "{Top} {count} {dimension} in {venue_city} {venue_state}", 
+        "{Top} {count} {dimension} for {cat_desc}", 
+
+        "{Top} {count} {dimension} for {event_name} in {event_month}",
+        "{Top} {count} {dimension} at {venue_name} in {event_month}",
+        "{Top} {count} {dimension} in {venue_city} in {event_month}",
+        "{Top} {count} {dimension} in {venue_city} {venue_state} in {event_month}",
+        "{Top} {count} {dimension} in {venue_state} in {event_month}",
+        "{Top} {count} {dimension} for {cat_desc} in {event_month}",
+
+        "{Top} {count} {dimension} for {event_name} in {venue_city}",
+        "{Top} {count} {dimension} in {event_month} in {venue_city}",
+        "{Top} {count} {dimension} at {venue_name} in {venue_city}",
+        "{Top} {count} {dimension} for {cat_desc} in {venue_city}",
+
+        "{Top} {count} {dimension} for {event_name} in {venue_state}",
+        "{Top} {count} {dimension} in {event_month} in {venue_state}",
+        "{Top} {count} {dimension} at {venue_name} in {venue_state}",
+        "{Top} {count} {dimension} in {venue_city} in {venue_state}",
+        "{Top} {count} {dimension} for {cat_desc} in {venue_state}",
+
+        "{Top} {count} {dimension} in {event_month} for {event_name}", 
+        "{Top} {count} {dimension} at {venue_name} for {event_name}", 
+        "{Top} {count} {dimension} in {venue_city} for {event_name}", 
+        "{Top} {count} {dimension} in {venue_state} for {event_name}", 
+        "{Top} {count} {dimension} in {venue_city} {venue_state} for {event_name}", 
+        "{Top} {count} {dimension} for {cat_desc} for {event_name}", 
+
+        "{Top} {count} {dimension} for {event_name} at {venue_name}", 
+        "{Top} {count} {dimension} in {event_month} at {venue_name}", 
+        "{Top} {count} {dimension} for {cat_desc} at {venue_name}"
+    ], 
+    "slots": [
+        {
+            "slotType": "TopX", 
+            "name": "Top", 
+            "slotConstraint": "Required", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "Top phrase", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 1, 
+            "slotTypeVersion": "$LATEST", 
+            "sampleUtterances": []
+        }, 
+        {
+            "slotType": "AMAZON.NUMBER", 
+            "name": "count", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "number", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 2, 
+            "sampleUtterances": []
+        }, 
+        {
+            "slotType": "dimensionsX", 
+            "name": "dimension", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "dimension", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 3, 
+            "slotTypeVersion": "$LATEST", 
+            "sampleUtterances": []
+        },
+        {
+            "slotType": "event_nameX", 
+            "name": "event_name", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "event name", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 4, 
+            "slotTypeVersion": "$LATEST", 
+            "sampleUtterances": []
+        }, 
+        {
+            "slotType": "AMAZON.Month", 
+            "name": "event_month", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "month", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 5, 
+            "sampleUtterances": []
+        }, 
+        {
+            "slotType": "AMAZON.MusicVenue", 
+            "name": "venue_name", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "venue", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 6, 
+            "sampleUtterances": []
+        }, 
+        {
+            "slotType": "AMAZON.US_CITY", 
+            "name": "venue_city", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "city", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 7, 
+            "sampleUtterances": []
+        }, 
+        {
+            "slotType": "AMAZON.US_STATE", 
+            "name": "venue_state", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "state", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 8, 
+            "sampleUtterances": []
+        }, 
+        {
+            "slotType": "cat_descX", 
+            "name": "cat_desc", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "category", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 9, 
+            "slotTypeVersion": "$LATEST", 
+            "sampleUtterances": []
+        }
+    ], 
+    "conclusionStatement": {
+      "messages": [
+        {
+          "content": "via code hook",
+          "contentType": "PlainText"
+        }
+      ]
+    },
+    "fulfillmentActivity": {
+        "type": "CodeHook", 
+        "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:687551564203:function:Jasper-Tickit", 
+            "messageVersion": "1.0"
+        }
+    }
+}

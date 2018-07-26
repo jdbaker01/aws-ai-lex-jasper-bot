@@ -1,0 +1,387 @@
+{
+        "name": "CompareX",
+        "description": "Recursively query the dataset",
+        "sampleUtterances": [
+            "{Compare} {Preposition} {one_event} {Versus} {another_event}", 
+            "{Compare} {Preposition} {one_event} {Versus} {another_event} in {event_month}", 
+            "{Compare} {Preposition} {one_event} {Versus} {another_event} at {venue_name}", 
+            "{Compare} {Preposition} {one_event} {Versus} {another_event} in {venue_city}", 
+            "{Compare} {Preposition} {one_event} {Versus} {another_event} in {venue_state}", 
+
+            "{Compare} {Preposition} {one_venue} {Versus} {another_venue}", 
+            "{Compare} {Preposition} {one_venue} {Versus} {another_venue} in {event_month}", 
+            "{Compare} {Preposition} {one_venue} {Versus} {another_venue} in {venue_city}", 
+            "{Compare} {Preposition} {one_venue} {Versus} {another_venue} in {venue_state}", 
+            "{Compare} {Preposition} {one_venue} {Versus} {another_venue} for {cat_desc}", 
+
+            "{Compare} {Preposition} {one_month} {Versus} {another_month}", 
+            "{Compare} {Preposition} {one_month} {Versus} {another_month} at {venue_name}", 
+            "{Compare} {Preposition} {one_month} {Versus} {another_month} in {venue_city}", 
+            "{Compare} {Preposition} {one_month} {Versus} {another_month} in {venue_state}", 
+            "{Compare} {Preposition} {one_month} {Versus} {another_month} for {cat_desc}", 
+
+            "{Compare} {Preposition} {one_city} {Versus} {another_city}", 
+            "{Compare} {Preposition} {one_city} {Versus} {another_city} in {event_month}", 
+            "{Compare} {Preposition} {one_city} {Versus} {another_city} in {venue_state}",
+            "{Compare} {Preposition} {one_city} {Versus} {another_city} for {cat_desc}",
+
+            "{Compare} {Preposition} {one_state} {Versus} {another_state}",
+            "{Compare} {Preposition} {one_state} {Versus} {another_state} in {event_month}",
+            "{Compare} {Preposition} {one_state} {Versus} {another_state} in {venue_city}",
+            "{Compare} {Preposition} {one_state} {Versus} {another_state} for {cat_desc}",
+
+            "{Compare} {Preposition} {one_category} {Versus} {another_category}",
+            "{Compare} {Preposition} {one_category} {Versus} {another_category} in {event_month}",
+            "{Compare} {Preposition} {one_category} {Versus} {another_category} at {venue_name}",
+            "{Compare} {Preposition} {one_category} {Versus} {another_category} in {venue_city}",
+            "{Compare} {Preposition} {one_category} {Versus} {another_category} in {venue_state}"
+        ], 
+        "conclusionStatement": {
+          "messages": [
+            {
+              "content": "via code hook",
+              "contentType": "PlainText"
+            }
+          ]
+        },
+        "fulfillmentActivity": {
+          "codeHook": {
+            "messageVersion": "1.0",
+            "uri": "arn:aws:lambda:us-east-1:687551564203:function:Jasper-Tickit"
+          },
+          "type": "CodeHook"
+        },
+        "slots": [
+            {
+                "slotType": "CompareX", 
+                "name": "Compare", 
+                "slotConstraint": "Required", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "compare phrase missing", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 1, 
+                "slotTypeVersion": "$LATEST", 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "VersusX", 
+                "name": "Versus", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "versus phrase", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 2, 
+                "slotTypeVersion": "$LATEST", 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "PrepositionX", 
+                "name": "Preposition", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "Preposition", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 3, 
+                "slotTypeVersion": "$LATEST", 
+                "sampleUtterances": []
+            },
+            {
+                "slotType": "AMAZON.Month", 
+                "name": "one_month", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "one event month", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 4, 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "AMAZON.Month", 
+                "name": "another_month", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "another event month", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 5, 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "AMAZON.MusicVenue", 
+                "name": "one_venue", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "one venue name", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 6, 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "AMAZON.MusicVenue", 
+                "name": "another_venue", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "another venue name", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 7, 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "AMAZON.US_CITY", 
+                "name": "one_city", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "one venue city", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 8, 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "AMAZON.US_CITY", 
+                "name": "another_city", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "another venue city", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 9, 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "AMAZON.US_STATE", 
+                "name": "one_state", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "one venue state", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 10, 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "AMAZON.US_STATE", 
+                "name": "another_state", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "another venue state", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 11, 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "event_nameX", 
+                "name": "one_event", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "one event name", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 12, 
+                "slotTypeVersion": "$LATEST", 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "event_nameX", 
+                "name": "another_event", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "another event name", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 13, 
+                "slotTypeVersion": "$LATEST", 
+                "sampleUtterances": []
+            },
+            {
+                "slotType": "AMAZON.Month", 
+                "name": "event_month", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "event_month", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 14, 
+                "sampleUtterances": []
+            },
+            {
+                "slotType": "AMAZON.MusicVenue", 
+                "name": "venue_name", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "venue name", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 15, 
+                "sampleUtterances": []
+            }, 
+            {
+                "slotType": "AMAZON.US_CITY", 
+                "name": "venue_city", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "venue_city", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 16, 
+                "sampleUtterances": []
+            },
+            {
+                "slotType": "AMAZON.US_STATE", 
+                "name": "venue_state", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "venue_state", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 17, 
+                "sampleUtterances": []
+            },
+            {
+                "slotType": "cat_descX", 
+                "name": "one_category", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "The type of event", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 18, 
+                "slotTypeVersion": "$LATEST", 
+                "sampleUtterances": [], 
+                "description": "cat_desc"
+            },
+            {
+                "slotType": "cat_descX", 
+                "name": "another_category", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "The type of event", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 19, 
+                "slotTypeVersion": "$LATEST", 
+                "sampleUtterances": [], 
+                "description": "cat_desc"
+            },
+            {
+                "slotType": "cat_descX", 
+                "name": "cat_desc", 
+                "slotConstraint": "Optional", 
+                "valueElicitationPrompt": {
+                    "maxAttempts": 2, 
+                    "messages": [
+                        {
+                            "content": "The type of event", 
+                            "contentType": "PlainText"
+                        }
+                    ]
+                }, 
+                "priority": 20, 
+                "slotTypeVersion": "$LATEST", 
+                "sampleUtterances": [], 
+                "description": "cat_desc"
+            } 
+        ]
+}

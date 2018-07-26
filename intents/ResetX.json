@@ -1,0 +1,138 @@
+{
+    "name": "ResetX",
+    "description": "Tell Jasper to start over",
+    "sampleUtterances": [
+      "start over", 
+      "jasper start over", 
+      "ok start over jasper", 
+      "ok reset", 
+      "{Reset}", 
+      "{Reset} {dimension}", 
+      "{Reset} {event_month}", 
+      "{Reset} {venue_name}", 
+      "{Reset} {venue_city}", 
+      "{Reset} {venue_state}", 
+      "{Reset} everything", 
+      "{Reset} {dimension} jasper", 
+      "{Reset} {event_month} jasper", 
+      "{Reset} {venue_name} jasper", 
+      "{Reset} {venue_city} jasper", 
+      "{Reset} {venue_state} jasper",
+      "{Reset} everything jasper"
+    ],
+    "slots": [
+        {
+            "slotType": "ResetX", 
+            "name": "Reset", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "Reset phrase", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 1, 
+            "slotTypeVersion": "$LATEST", 
+            "sampleUtterances": []
+        }, 
+        {
+            "slotType": "dimensionsX", 
+            "name": "dimension", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "dimension", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 2, 
+            "slotTypeVersion": "$LATEST", 
+            "sampleUtterances": []
+        },
+        {
+            "slotType": "AMAZON.Month", 
+            "name": "event_month", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "event_month", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 3, 
+            "sampleUtterances": []
+        }, 
+        {
+            "slotType": "AMAZON.MusicVenue", 
+            "name": "venue_name", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "venue_name", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 4, 
+            "sampleUtterances": []
+        }, 
+        {
+            "slotType": "AMAZON.US_CITY", 
+            "name": "venue_city", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "venue_city", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 5, 
+            "sampleUtterances": []
+        }, 
+        {
+            "slotType": "AMAZON.US_STATE", 
+            "name": "venue_state", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "venue_state", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 6, 
+            "sampleUtterances": []
+        }
+    ],
+    "fulfillmentActivity": {
+        "type": "CodeHook", 
+        "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:687551564203:function:Jasper-Tickit", 
+            "messageVersion": "1.0"
+        }
+    }, 
+    "conclusionStatement": {
+      "messages": [
+        {
+          "content": "via code hook",
+          "contentType": "PlainText"
+        }
+      ]
+    }
+}

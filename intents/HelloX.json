@@ -1,0 +1,41 @@
+{
+        "name": "HelloX",
+        "description": "Say hey to Jasper",
+        "conclusionStatement": {
+          "messages": [
+            {
+              "content": "via code hook",
+              "contentType": "PlainText"
+            }
+          ]
+        },
+        "fulfillmentActivity": {
+          "codeHook": {
+            "messageVersion": "1.0",
+            "uri": "arn:aws:lambda:us-east-1:687551564203:function:Jasper-Tickit"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "hello",
+          "hello Jasper",
+          "hello there",
+          "bro",
+          "dude",
+          "hey",
+          "hey bro",
+          "hey dude",
+          "hey man",
+          "hey there",
+          "hi",
+          "hi Jasper",
+          "hi there",
+          "Jasper",
+          "yo",
+          "yo dude",
+          "yo Jasper",
+          "you there"
+        ],
+        "slots": [
+        ]
+}
