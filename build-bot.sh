@@ -22,6 +22,6 @@ do
 done
   
 # build the bot 
-echo "Creating Bot: $i"
+echo "Creating Bot: $BOT"
 aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json
 

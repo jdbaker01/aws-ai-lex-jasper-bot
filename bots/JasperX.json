@@ -24,7 +24,7 @@
         }, 
         {
             "intentVersion": "$LATEST", 
-            "intentName": "ResetParametersX"
+            "intentName": "ResetX"
         }, 
         {
             "intentVersion": "$LATEST", 
