@@ -4,7 +4,6 @@ phases:
   install:
     commands:
       - pip install boto3
-      - docker-php-ext-install zip
   build:
     commands:
       - echo Build started on `date`
