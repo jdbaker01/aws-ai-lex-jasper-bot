@@ -11,7 +11,7 @@ SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX d
 
 # delete the bot if it exists
 if aws lex-models get-bot --name $BOT --version-or-alias '$LATEST' >/dev/null 2>&1
-then echo "Deleting Bot: $BOT"; aws lex-models delete-bot $BOT; sleep 10
+then echo "Deleting Bot: $BOT"; aws lex-models delete-bot --name $BOT; sleep 10
 fi
 
 # delete the intents
