@@ -10,7 +10,7 @@ phases:
       - echo Compiling the Python code...
       - python HelloWorld.py
       - python test.py
-      - if aws lex-models get-slot-type --name CompareTest --slot-type-version '$LATEST' >>/dev/null 2>&1; then aws lex-models delete-slot-type --name CompareTest; else ; fi
+      - if aws lex-models get-slot-type --name CompareTest --slot-type-version '$LATEST' >>/dev/null 2>&1; then aws lex-models delete-slot-type --name CompareTest; fi
       - aws lex-models put-slot-type --name CompareTest --cli-input-json file://CompareTest_slot.json
   post_build:
     commands:
