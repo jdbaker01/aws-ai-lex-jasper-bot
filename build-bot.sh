@@ -22,7 +22,6 @@ do
 done
   
 # deploy the Lambda intent handler
-zip JasperLambda.zip lambda_function.py
 aws lambda create-function --function-name JasperX --description 'JasperX Bot - Tickit database' --timeout 300 --zip-file fileb://JasperLambda.zip --role arn:aws:iam::687551564203:role/LambdaServiceRoleAthenaS3 --handler lambda_function.lambda_handler --runtime python3.6 --profile adminuser 
 
 # build the bot 
