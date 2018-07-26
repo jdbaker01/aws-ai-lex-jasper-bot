@@ -10,7 +10,7 @@ phases:
       - echo Compiling the Python code...
       - python HelloWorld.py
       - python test.py
-      - aws lex-models put-slot-type --name CompareTest --cli-input-json file://Compare_slot.json
+      - aws lex-models put-slot-type --name CompareTest --cli-input-json file://CompareTest_slot.json
   post_build:
     commands:
       - echo Build completed on `date`
