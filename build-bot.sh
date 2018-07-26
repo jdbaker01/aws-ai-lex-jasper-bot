@@ -11,6 +11,7 @@ SLOTS="CompareX CountX"
 # delete the custom slot types
 for i in $SLOTS
 do
+	echo "Creating Slot Type: $i"
 	aws lex-models put-slot-type --name $i --cli-input-json file://slots/$i.json
 done
 
