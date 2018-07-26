@@ -5,8 +5,7 @@
 
 BOT="JasperX"
 INTENTS="CompareX CountX GoodByeX HelloX RefreshX ResetX TopX"
-# SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
-SLOTS="CompareX CountX"
+SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
 
 # delete the custom slot types
 for i in $SLOTS
