@@ -4,6 +4,7 @@
         "enumerationValues": [
           { "value": "Compare" },
           { "value": "Compare sales" },
+          { "value": "Compare ticket sales" },
           { "value": "Difference in" },
           { "value": "Difference between" },
           { "value": "Difference in sales" },
