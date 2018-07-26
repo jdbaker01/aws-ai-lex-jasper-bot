@@ -1,0 +1,15 @@
+{ 
+        "name": "ResetX",
+        "description": "Intent identifier to reset remembered dimensions",
+        "enumerationValues": [
+          { "value": "Reset" }, 
+          { "value": "Reset the" }, 
+          { "value": "Jasper reset the" }, 
+          { "value": "Forget" }, 
+          { "value": "Forget the" }, 
+          { "value": "Jasper forget the" }, 
+          { "value": "Clear" }, 
+          { "value": "Clear the" }, 
+          { "value": "Jasper clear the" }
+        ]
+}

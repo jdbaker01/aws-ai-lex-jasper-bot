@@ -1,0 +1,11 @@
+{
+        "name": "TopX",
+        "description": "Intent identifier for top sales query",
+        "enumerationValues": [
+          { "value": "Top" }, 
+          { "value": "What are the top" }, 
+          { "value": "Tell me the top" }, 
+          { "value": "Can you tell me the top" }, 
+          { "value": "Please tell me the top" }
+        ]
+}

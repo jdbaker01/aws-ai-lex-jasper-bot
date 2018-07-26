@@ -1,0 +1,33 @@
+{
+        "name": "CountX",
+        "description": "Intent identifier for the count sales query",
+        "enumerationValues": [
+
+          { "value": "Please tell me how many tickets were sold" },
+          { "value": "Can you tell me how many tickets were sold" },
+          { "value": "Tell me how many tickets were sold" },
+          { "value": "Let me know how many tickets were sold" },
+          { "value": "How many tickets were sold" },
+
+          { "value": "Please count the tickets sold" },
+          { "value": "How many tickets sold" },
+          { "value": "Tickets sold" },
+          { "value": "How many tickets" },
+          { "value": "How many" },
+
+          { "value": "What were the ticket sales" },
+          { "value": "Ticket sales" },
+
+          { "value": "Please count the tickets" },
+          { "value": "Count of tickets" },
+
+          { "value": "Let me know how many" },
+          { "value": "Let me know how many tickets" },
+          { "value": "Tell me how many" },
+
+          { "value": "What about" },
+          { "value": "How about" }
+
+        ]
+}
+

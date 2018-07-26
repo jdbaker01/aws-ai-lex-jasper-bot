@@ -1,0 +1,11 @@
+{
+        "name": "TicketSalesX",
+        "description": "Variations on the phrase: tickets sold",
+        "enumerationValues": [
+          { "value": "tickets sold" },
+          { "value": "tickets were sold" },
+          { "value": "tickets" },
+          { "value": "ticket sales" }
+        ]
+}
+

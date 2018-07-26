@@ -1,0 +1,10 @@
+{
+        "name": "VersusX",
+        "description": "Variations of the phrase versus",
+        "enumerationValues": [
+          { "value": "versus" },
+          { "value": "and" },
+          { "value": "as opposed to" },
+          { "value": "over" }
+        ] 
+}

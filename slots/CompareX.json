@@ -1,0 +1,13 @@
+{
+        "name": "CompareX",
+        "description": "Intent identifier for compare sales query",
+        "enumerationValues": [
+          { "value": "Compare" },
+          { "value": "Compare sales" },
+          { "value": "Difference in" },
+          { "value": "Difference between" },
+          { "value": "Difference in sales" },
+          { "value": "Increase in sales" },
+          { "value": "Decrease in sales" }
+        ] 
+}  
