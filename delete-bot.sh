@@ -32,6 +32,6 @@ do
 done
  
 # delete the lambda function
-if aws lambda get-function --name $LAMBDA >/dev/null 2>&1
+if aws lambda get-function --function-name $LAMBDA >/dev/null 2>&1
 then echo "Deleting Lambda Function: $LAMBDA"; aws lambda delete-function --name $LAMBDA; sleep 10
 fi
