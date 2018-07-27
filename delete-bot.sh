@@ -55,7 +55,7 @@ if aws lambda get-function --function-name $LAMBDA >/dev/null
 then 
     # echo "sleep $SLEEP..."
     sleep $SLEEP
-    echo "Deleting Lambda Function: $LAMBDA"
+    echo "Deleting Lambda handler function: $LAMBDA"
     aws lambda delete-function --function-name $LAMBDA
     # echo "sleep $SLEEP..."
     sleep $SLEEP
