@@ -15,6 +15,7 @@ SLEEP=2
 if aws lex-models get-bot --name $BOT --version-or-alias '$LATEST' >/dev/null 2>&1
 then 
     echo "sleep $SLEEP..."
+    sleep $SLEEP
     echo "Deleting Bot: $BOT"
     aws lex-models delete-bot --name $BOT
     echo "sleep $SLEEP..."
@@ -27,6 +28,7 @@ do
     if aws lex-models get-intent --name $i --intent-version '$LATEST' >/dev/null 2>&1
     then 
         echo "sleep $SLEEP..."
+        sleep $SLEEP
         echo "Deleting Intent: $i"
         aws lex-models delete-intent --name $i
         echo "sleep $SLEEP..."
@@ -40,6 +42,7 @@ do
     if aws lex-models get-slot-type --name $i --slot-type-version '$LATEST' >/dev/null 2>&1
     then 
         echo "sleep $SLEEP..."
+        sleep $SLEEP
         echo "Deleting Slot Type: $i"
         aws lex-models delete-slot-type --name $i
         echo "sleep $SLEEP..."
@@ -51,6 +54,7 @@ done
 if aws lambda get-function --function-name $LAMBDA >/dev/null 2>&1
 then 
     echo "sleep $SLEEP..."
+    sleep $SLEEP
     echo "Deleting Lambda Function: $LAMBDA"
     aws lambda delete-function --function-name $LAMBDA
     echo "sleep $SLEEP..."
