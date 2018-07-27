@@ -33,5 +33,5 @@ done
 
 # build the bot 
 echo "Creating Bot: $BOT"
-aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json
+aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.xson >/dev/null
 
