@@ -857,7 +857,7 @@ def get_jasper_config():
     try:
         ATHENA_DB = os.environ['ATHENA_DB']
         ATHENA_OUTPUT_LOCATION = os.environ['ATHENA_OUTPUT_LOCATION']
-        str = os.environ['dimensions']
+# BTY DELETE        str = os.environ['dimensions']
     except KeyError:
         return 'I have a configuration error - please set up the Athena database information.'
 
