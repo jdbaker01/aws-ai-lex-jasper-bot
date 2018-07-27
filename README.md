@@ -5,5 +5,4 @@ Jasper is a business intelligence chatbot that can respond to user questions abo
 
 TODO: 
 1. Default region environment variable?
-2. Try running CLI commands with JSON input for Jasper
-
+2. Lambda function seems to not be remembering properly - probably because I changed slot/intent names
