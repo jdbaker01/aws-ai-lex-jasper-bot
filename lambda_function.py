@@ -855,8 +855,8 @@ def get_jasper_config():
     global ATHENA_OUTPUT_LOCATION
 
     try:
-        ATHENA_DB = os.environ['athena_db']
-        ATHENA_OUTPUT_LOCATION = os.environ['athena_output_location']
+        ATHENA_DB = os.environ['ATHENA_DB']
+        ATHENA_OUTPUT_LOCATION = os.environ['ATHENA_OUTPUT_LOCATION']
         str = os.environ['dimensions']
     except KeyError:
         return 'I have a configuration error - please set up the Athena database information.'

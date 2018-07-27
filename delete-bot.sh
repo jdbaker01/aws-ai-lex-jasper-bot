@@ -8,6 +8,7 @@
 BOT="JasperX"
 INTENTS="CompareX CountX GoodByeX HelloX RefreshX ResetX TopX"
 SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
+LAMBDA="JasperX"
 
 # delete the bot if it exists
 if aws lex-models get-bot --name $BOT --version-or-alias '$LATEST' >/dev/null 2>&1
@@ -29,4 +30,8 @@ do
    	then echo "Deleting Slot Type: $i"; aws lex-models delete-slot-type --name $i; sleep 10
 	fi
 done
-  
+ 
+# delete the lambda function
+if aws lambda get-function --name $LAMBDA >/dev/null 2>&1
+then echo "Deleting Lambda Function: $LAMBDA"; aws lambda delete-function --name $LAMBDA; sleep 10
+fi
