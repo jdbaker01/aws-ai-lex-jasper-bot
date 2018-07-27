@@ -6,3 +6,4 @@ Jasper is a business intelligence chatbot that can respond to user questions abo
 TODO: 
 1. Default region environment variable?
 2. Lambda function seems to not be remembering properly - probably because I changed slot/intent names
+3. Parameterize the URI for the Lambda handler in the intents
