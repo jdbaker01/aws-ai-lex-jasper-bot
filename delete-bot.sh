@@ -9,7 +9,7 @@ BOT="JasperX"
 INTENTS="CompareX CountX GoodByeX HelloX RefreshX ResetX TopX"
 SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
 LAMBDA="JasperX"
-SLEEP=5
+SLEEP=3
 
 # delete the bot if it exists
 if aws lex-models get-bot --name $BOT --version-or-alias '$LATEST' >/dev/null

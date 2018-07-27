@@ -33,8 +33,8 @@ done
 
 # build the bot 
 echo "Creating Bot: $BOT"
-if aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.xson >/dev/null
-then echo "Bot built successfully"; exit 0
-else echo "Bot not created"; exit 1
+if aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
+then echo "Success: $BOT bot build complete."; exit 0
+else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
 fi
 
