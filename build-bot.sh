@@ -11,9 +11,11 @@ ATHENA_DB="tickit"
 ATHENA_OUTPUT_LOCATION="s3://ai-aod-demo-bryost-athena-output"
 
 # deploy the Lambda intent handler
-aws lambda create-function --function-name $LAMBDA --description "$LAMBDA Intent Handler" --timeout 300 --zip-file fileb://JasperLambda.zip --role arn:aws:iam::687551564203:role/LambdaServiceRoleAthenaS3 --handler lambda_function.lambda_handler --runtime python3.6 --environment "Variables={ATHENA_DB=$ATHENA_DB,ATHENA_OUTPUT_LOCATION=$ATHENA_OUTPUT_LOCATION}"
+echo "Creating Lambda Handler: $LAMBDA"
+aws lambda create-function --function-name $LAMBDA --description "$LAMBDA Intent Handler" --timeout 300 --zip-file fileb://JasperLambda.zip --role arn:aws:iam::687551564203:role/LambdaServiceRoleAthenaS3 --handler lambda_function.lambda_handler --runtime python3.6 --environment "Variables={ATHENA_DB=$ATHENA_DB,ATHENA_OUTPUT_LOCATION=$ATHENA_OUTPUT_LOCATION}" >/dev/null
 
-aws lambda add-permission --function-name $LAMBDA --statement-id chatbot-fulfillment --action "lambda:InvokeFunction" --principal "lex.amazonaws.com"
+echo "Adding permission to invoke Lambda Handler: $LAMBDA from Amazon Lex"
+aws lambda add-permission --function-name $LAMBDA --statement-id chatbot-fulfillment --action "lambda:InvokeFunction" --principal "lex.amazonaws.com" >/dev/null
 
 # build the custom slot types
 for i in $SLOTS
