@@ -8,7 +8,7 @@ phases:
     commands:
       - echo Build started on `date`
       - sh delete-bot.sh
-      - echo "wait 30 seconds..."; sleep 30             # YMMV
+      - echo "wait 30 seconds..."; sleep 30             # your mileage may vary
       - python zip.py JasperLambda.zip lambda_function.py
       - sh build-bot.sh
   post_build:
