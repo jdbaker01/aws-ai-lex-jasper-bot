@@ -726,7 +726,7 @@ def refresh_intent_handler(intent_request):
         pass
     
     '''
-    response = lex_models.get_intent(name='CompareSales', version='$LATEST')
+    response = lex_models.get_intent(name='CompareX', version='$LATEST')
     logger.debug('<<Jasper>> Lex get-intent = ' + pprint.pformat(response, indent=4)) 
     logger.debug('<<Jasper.. Lex get-intent keys = ' + pprint.pformat(response.keys()))
     
@@ -747,10 +747,10 @@ def refresh_intent_handler(intent_request):
     
     ## TODO: need to update all Intents that use the slot, to rev the version referenced.
 
-    response = lex_models.get_bot(name='Jasper', versionOrAlias='$LATEST')
+    response = lex_models.get_bot(name='JasperX', versionOrAlias='$LATEST')
     logger.debug('<<Jasper>> Lex bot Jasper = ' + pprint.pformat(response, indent=4)) 
     
-    response = lex_models.put_bot(name='Jasper',
+    response = lex_models.put_bot(name='JasperX',
                                   description=response['description'],
                                   intents=response['intents'],
                                   clarificationPrompt=response['clarificationPrompt'],
@@ -763,7 +763,7 @@ def refresh_intent_handler(intent_request):
                                   childDirected=response['childDirected']
                                  )
 
-    logger.debug('<<Jasper>> Lex put bot Jasper = ' + pprint.pformat(response, indent=4)) 
+    logger.debug('<<Jasper>> Lex put bot JasperX = ' + pprint.pformat(response, indent=4)) 
 
     response_string = "I've refreshed the events dimension from the database.  You may need to rebuild me."
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
