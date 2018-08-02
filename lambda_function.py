@@ -12,6 +12,18 @@ ATHENA_OUTPUT_LOCATION = ''     # set in environment variable
 ORIGINAL_VALUE = 0
 TOP_RESOLUTION = 1
 
+INTENT_CONFIG = {
+    'HelloX':      {'handler': hello_intent_handler},
+    'CountX':      {'handler': count_intent_handler},
+    'CompareX':    {'handler': compare_intent_handler},
+    'TopX':        {'handler': top_intent_handler},
+    'ResetX':      {'handler': reset_intent_handler},
+    'RefreshX':    {'handler': refresh_intent_handler},
+    'GoodByeX':    {'handler': goodbye_intent_handler}
+}
+
+# TODO: rewrite the dispatch function
+
 SLOT_CONFIG = {
     'event_name':       {'type': TOP_RESOLUTION, 'remember': True,  'error': 'I couldn\'t find an event called "{}".'},
     'event_month':      {'type': ORIGINAL_VALUE, 'remember': True},
@@ -44,7 +56,7 @@ DIMENSIONS = {
     'categories': {'slot': 'cat_desc',    'column': 'c.cat_desc',    'singular': 'category'}
 }
 
-COMPARE_SALES_CONFIG = {
+COMPARE_CONFIG = {
     'events':     {'1st': 'one_event',    '2nd': 'another_event',    'error': 'Sorry, try "Compare sales for Event 1 versus Event 2'},
     'months':     {'1st': 'one_month',    '2nd': 'another_month',    'error': 'Sorry, try "Compare sales for Month 1 versus Month 2'},
     'venues':     {'1st': 'one_venue',    '2nd': 'another_venue',    'error': 'Sorry, try "Compare sales for Venue 1 versus Venue 2'},
@@ -53,24 +65,24 @@ COMPARE_SALES_CONFIG = {
     'categories': {'1st': 'one_category', '2nd': 'another_category', 'error': 'Sorry, try "Compare sales for Category 1 versus Category 2'}
 }
 
-# SELECT statement for count sales query
-COUNT_SALES_SELECT = "SELECT SUM(s.qty) FROM sales s, event e, venue v, category c, date d "
-COUNT_SALES_JOIN = " WHERE e.event_id = s.event_id AND v.venue_id = e.venue_id AND c.cat_id = e.cat_id AND d.date_id = e.date_id "
-COUNT_SALES_WHERE = " AND LOWER({}) LIKE LOWER('%{}%') "   
-COUNT_SALES_PHRASE = 'tickets sold'
+# SELECT statement for Count query
+COUNT_SELECT = "SELECT SUM(s.qty) FROM sales s, event e, venue v, category c, date d "
+COUNT_JOIN = " WHERE e.event_id = s.event_id AND v.venue_id = e.venue_id AND c.cat_id = e.cat_id AND d.date_id = e.date_id "
+COUNT_WHERE = " AND LOWER({}) LIKE LOWER('%{}%') "   
+COUNT_PHRASE = 'tickets sold'
 
-# SELECT statement for compare sales query
-COMPARE_SALES_SELECT = "SELECT {}, SUM(s.amount) ticket_sales  FROM sales s, event e, venue v, category c, date d "
-COMPARE_SALES_JOIN = " WHERE e.event_id = s.event_id AND v.venue_id = e.venue_id AND c.cat_id = e.cat_id AND d.date_id = e.date_id "
-COMPARE_SALES_WHERE = " AND LOWER({}) LIKE LOWER('%{}%') "  
-COMPARE_SALES_ORDERBY = " GROUP BY {} ORDER BY ticket_sales DESC "
+# SELECT statement for Compare query
+COMPARE_SELECT = "SELECT {}, SUM(s.amount) ticket_sales  FROM sales s, event e, venue v, category c, date d "
+COMPARE_JOIN = " WHERE e.event_id = s.event_id AND v.venue_id = e.venue_id AND c.cat_id = e.cat_id AND d.date_id = e.date_id "
+COMPARE_WHERE = " AND LOWER({}) LIKE LOWER('%{}%') "  
+COMPARE_ORDERBY = " GROUP BY {} ORDER BY ticket_sales DESC "
 
-# SELECT statement for top5 query
-TOP5_SELECT  = "SELECT {}, SUM(s.amount) ticket_sales FROM sales s, event e, venue v, category c, date d  "
-TOP5_JOIN    = " WHERE e.event_id = s.event_id AND v.venue_id = e.venue_id AND c.cat_id = e.cat_id AND d.date_id = e.date_id "
-TOP5_WHERE   = " AND LOWER({}) LIKE LOWER('%{}%') " 
-TOP5_ORDERBY = " GROUP BY {} ORDER BY ticket_sales desc" 
-TOP5_DEFAULT_COUNT = '5'
+# SELECT statement for Top query
+TOP_SELECT  = "SELECT {}, SUM(s.amount) ticket_sales FROM sales s, event e, venue v, category c, date d  "
+TOP_JOIN    = " WHERE e.event_id = s.event_id AND v.venue_id = e.venue_id AND c.cat_id = e.cat_id AND d.date_id = e.date_id "
+TOP_WHERE   = " AND LOWER({}) LIKE LOWER('%{}%') " 
+TOP_ORDERBY = " GROUP BY {} ORDER BY ticket_sales desc" 
+TOP_DEFAULT_COUNT = '5'
 
 session_attributes = {}         # session attributes, used to retain conversational state
 
@@ -100,25 +112,25 @@ def dispatch(intent_request):
     intent_name = intent_request['currentIntent']['name']
     
     if intent_name == 'HelloX':
-        return greeting_intent_handler(intent_request)
+        return hello_intent_handler(intent_request)
         
     elif intent_name == 'CountX':
-        return count_sales_intent_handler(intent_request)
+        return count_intent_handler(intent_request)
         
     elif intent_name == 'CompareX':
-        return compare_sales_intent_handler(intent_request)
+        return compare_intent_handler(intent_request)
         
     elif intent_name == 'TopX':
-        return top_five_intent_handler(intent_request)
+        return top_intent_handler(intent_request)
         
     elif intent_name == 'ResetX':
-        return reset_parameters_intent_handler(intent_request)
+        return reset_intent_handler(intent_request)
         
     elif intent_name == 'RefreshX':
         return refresh_intent_handler(intent_request)
         
     elif intent_name == 'GoodByeX':
-        return finished_intent_handler(intent_request)
+        return goodbye_intent_handler(intent_request)
         
     else:
         return close(session_attributes, 'Fulfilled',
@@ -126,7 +138,7 @@ def dispatch(intent_request):
 
     raise Exception('Intent "' + intent_name + '" not supported')
 
-def greeting_intent_handler(intent_request):
+def hello_intent_handler(intent_request):
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
 
@@ -142,7 +154,7 @@ def greeting_intent_handler(intent_request):
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
-def reset_parameters_intent_handler(intent_request):
+def reset_intent_handler(intent_request):
     global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
 
     session_attributes['greetingCount'] = '1'
@@ -165,7 +177,7 @@ def reset_parameters_intent_handler(intent_request):
                 if slot_values.get(key):
                     value = post_process_dimension_output(key, slot_values.get(key))
                     dimensions_reset += ' {}'.format(value.title())
-                    logger.debug('<<Jasper>> reset_parameters_intent_handler() - forgetting slot %s value %s', key, slot_values[key])
+                    logger.debug('<<Jasper>> reset_intent_handler() - forgetting slot %s value %s', key, slot_values[key])
                     slot_values[key] = None
                 else:
                     message = "I wasn't remembering {} - {} anyway.".format(key, slots_to_reset.get(key))
@@ -176,10 +188,10 @@ def reset_parameters_intent_handler(intent_request):
     if dimension and DIMENSIONS.get(dimension):
         slot_key = DIMENSIONS[dimension].get('slot')
         if slot_values.get(slot_key):
-            logger.debug('<<Jasper>> reset_parameters_intent_handler() - forgetting %s (%s)', dimension, slot_values[slot_key])
+            logger.debug('<<Jasper>> reset_intent_handler() - forgetting %s (%s)', dimension, slot_values[slot_key])
             value = post_process_dimension_output(dimension, slot_values[slot_key])
             dimensions_reset += ' {}'.format(value).title()
-            logger.debug('<<Jasper>> reset_parameters_intent_handler() - forgetting dimension %s slot_key %s value %s', dimension, slot_key, slot_values[slot_key])
+            logger.debug('<<Jasper>> reset_intent_handler() - forgetting dimension %s slot_key %s value %s', dimension, slot_key, slot_values[slot_key])
             slot_values[slot_key] = None
 
     if dimensions_reset == '':
@@ -192,7 +204,7 @@ def reset_parameters_intent_handler(intent_request):
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
-def finished_intent_handler(intent_request):
+def goodbye_intent_handler(intent_request):
     session_attributes['greetingCount'] = '0'
     session_attributes['resetCount'] = '0'
     session_attributes['queryAttributes'] = None
@@ -209,7 +221,7 @@ def finished_intent_handler(intent_request):
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
-def count_sales_intent_handler(intent_request):
+def count_intent_handler(intent_request):
     global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
 
     method_start = time.perf_counter()
@@ -228,23 +240,23 @@ def count_sales_intent_handler(intent_request):
     except SlotError as err:
         return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': str(err)})   
     
-    logger.debug('<<Jasper>> "count_sales_intent_handler(): slot_values: %s', slot_values)
+    logger.debug('<<Jasper>> "count_intent_handler(): slot_values: %s', slot_values)
 
     # Retrieve "remembered" slot values from session attributes
     slot_values = get_remembered_slot_values(slot_values, session_attributes)
-    logger.debug('<<Jasper>> "count_sales_intent_handler(): slot_values afer get_remembered_slot_values: %s', slot_values)
+    logger.debug('<<Jasper>> "count_intent_handler(): slot_values afer get_remembered_slot_values: %s', slot_values)
 
     # Remember updated slot values
     remember_slot_values(slot_values, session_attributes)
     
     # build and execute query
-    select_clause = COUNT_SALES_SELECT
-    where_clause = COUNT_SALES_JOIN
+    select_clause = COUNT_SELECT
+    where_clause = COUNT_JOIN
     for dimension in DIMENSIONS:
         slot_key = DIMENSIONS.get(dimension).get('slot')
         if slot_values[slot_key] is not None:
             value = pre_process_query_value(slot_key, slot_values[slot_key])
-            where_clause += COUNT_SALES_WHERE.format(DIMENSIONS.get(dimension).get('column'), value)
+            where_clause += COUNT_WHERE.format(DIMENSIONS.get(dimension).get('column'), value)
     
     query_string = select_clause + where_clause
     
@@ -260,9 +272,9 @@ def count_sales_intent_handler(intent_request):
 
     # build response string
     if count == 0:
-        response_string = 'There were no {}'.format(COUNT_SALES_PHRASE)
+        response_string = 'There were no {}'.format(COUNT_PHRASE)
     else:
-        response_string = 'There were {} {}'.format(count, COUNT_SALES_PHRASE)
+        response_string = 'There were {} {}'.format(count, COUNT_PHRASE)
 
     # add the English versions of the WHERE clauses
     for dimension in DIMENSIONS:
@@ -280,7 +292,7 @@ def count_sales_intent_handler(intent_request):
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
-def compare_sales_intent_handler(intent_request):
+def compare_intent_handler(intent_request):
     global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
 
     method_start = time.perf_counter()
@@ -301,16 +313,16 @@ def compare_sales_intent_handler(intent_request):
     except SlotError as err:
         return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': str(err)})   
         
-    logger.debug('<<Jasper>> "count_sales_intent_handler(): slot_values: %s', slot_values)
+    logger.debug('<<Jasper>> "count_intent_handler(): slot_values: %s', slot_values)
 
     # Retrieve "remembered" slot values from session attributes
     slot_values = get_remembered_slot_values(slot_values, session_attributes)
-    logger.debug('<<Jasper>> "count_sales_intent_handler(): slot_values afer get_remembered_slot_values: %s', slot_values)
+    logger.debug('<<Jasper>> "count_intent_handler(): slot_values afer get_remembered_slot_values: %s', slot_values)
 
     # Remember updated slot values
     remember_slot_values(slot_values, session_attributes)
     
-    for key,config in COMPARE_SALES_CONFIG.items():
+    for key,config in COMPARE_CONFIG.items():
         if slot_values.get(config['1st']):
             if slot_values.get(config['2nd']) is None:
                 return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText', 'content': config['error'] })
@@ -347,8 +359,8 @@ def compare_sales_intent_handler(intent_request):
     #       result_set dict with the inputted key
     
     # Build and execute query
-    select_clause = COMPARE_SALES_SELECT.format(DIMENSIONS[slot_values['dimension']]['column'])
-    where_clause = COMPARE_SALES_JOIN
+    select_clause = COMPARE_SELECT.format(DIMENSIONS[slot_values['dimension']]['column'])
+    where_clause = COMPARE_JOIN
 
     the_1st_dimension_value = pre_process_query_value(DIMENSIONS[key]['slot'], the_1st_dimension_value)
     the_2nd_dimension_value = pre_process_query_value(DIMENSIONS[key]['slot'], the_2nd_dimension_value)
@@ -362,9 +374,9 @@ def compare_sales_intent_handler(intent_request):
             logger.debug('<<Jasper>> compare_sales_intent_request - calling pre_process_query_value(%s, %s)', 
                          slot_key, slot_values[slot_key])  
             value = pre_process_query_value(slot_key, slot_values[slot_key])
-            where_clause += COMPARE_SALES_WHERE.format(DIMENSIONS.get(dimension).get('column'), value)
+            where_clause += COMPARE_WHERE.format(DIMENSIONS.get(dimension).get('column'), value)
 
-    order_by_group_by = COMPARE_SALES_ORDERBY.format(DIMENSIONS[slot_values['dimension']]['column'])
+    order_by_group_by = COMPARE_ORDERBY.format(DIMENSIONS[slot_values['dimension']]['column'])
 
     query_string = select_clause + where_clause + order_by_group_by
     
@@ -421,7 +433,7 @@ def compare_sales_intent_handler(intent_request):
         # TODO: problem - if you spell an event name incorrectly it may find it in the SQL
         # query, but it will create an error in the result_set[] lookup
 
-        logger.debug('<<Jasper>> compare_sales_intent_handler - result_set = %s', result_set) 
+        logger.debug('<<Jasper>> compare_intent_handler - result_set = %s', result_set) 
 
         the_1st_dimension_string = result_set[the_1st_dimension_value][0]
         the_1st_dimension_string = post_process_dimension_output(key, the_1st_dimension_string)
@@ -463,7 +475,7 @@ def compare_sales_intent_handler(intent_request):
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
-def top_five_intent_handler(intent_request):
+def top_intent_handler(intent_request):
     global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
 
     # TODO: make this a decorator
@@ -482,14 +494,14 @@ def top_five_intent_handler(intent_request):
     except SlotError as err:
         return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': str(err)})   
 
-    logger.debug('<<Jasper>> "top_five_intent_handler(): slot_values: %s', slot_values)
+    logger.debug('<<Jasper>> "top_intent_handler(): slot_values: %s', slot_values)
 
     # Retrieve "remembered" slot values from session attributes
     slot_values = get_remembered_slot_values(slot_values, session_attributes)
-    logger.debug('<<Jasper>> "top_five_intent_handler(): slot_values afer get_remembered_slot_values: %s', slot_values)
+    logger.debug('<<Jasper>> "top_intent_handler(): slot_values afer get_remembered_slot_values: %s', slot_values)
 
     if slot_values.get('count') is None:
-        slot_values['count'] = TOP5_DEFAULT_COUNT
+        slot_values['count'] = TOP_DEFAULT_COUNT
 
     if slot_values.get('dimension') is None:
         response_string = 'Please tell me a dimension, for example, "top five months".'
@@ -500,10 +512,10 @@ def top_five_intent_handler(intent_request):
     dimension_slot = DIMENSIONS.get(slot_values.get('dimension')).get('slot')
     if dimension_slot is not None:
         slot_values[dimension_slot] = None
-        logger.debug('<<Jasper>> "top_five_intent_handler(): cleared dimension slot: %s', dimension_slot)
+        logger.debug('<<Jasper>> "top_intent_handler(): cleared dimension slot: %s', dimension_slot)
 
     # store updated slot values
-    logger.debug('<<Jasper>> "top_five_intent_handler(): calling remember_slot_values_NEW: %s', slot_values)
+    logger.debug('<<Jasper>> "top_intent_handler(): calling remember_slot_values_NEW: %s', slot_values)
     remember_slot_values(slot_values, session_attributes)
 
     # Check for minimum required slot values
@@ -530,7 +542,7 @@ def top_five_intent_handler(intent_request):
     try:
         # the SELECT clause is for a particular dimension e.g., top 5 {states}...
         # Example: "SELECT {}, SUM(s.amount) ticket_sales FROM sales s, event e, venue v, category c, date ed  "
-        select_clause = TOP5_SELECT.format(DIMENSIONS.get(slot_values.get('dimension')).get('column'))
+        select_clause = TOP_SELECT.format(DIMENSIONS.get(slot_values.get('dimension')).get('column'))
     except KeyError:
         # TODO: is this necessary?
         return close(session_attributes, 'Fulfilled',
@@ -538,7 +550,7 @@ def top_five_intent_handler(intent_request):
             
     # add JOIN clauses 
     # Example: " WHERE e.event_id = s.event_id AND v.venue_id = e.venue_id AND c.cat_id = e.cat_id AND d.date_id = e.date_id "
-    where_clause = TOP5_JOIN
+    where_clause = TOP_JOIN
 
     # add WHERE clause for each non empty slot
     # Example: " AND LOWER({}) LIKE LOWER('%{}%') " 
@@ -546,12 +558,12 @@ def top_five_intent_handler(intent_request):
         slot_key = DIMENSIONS.get(dimension).get('slot')
         if slot_values[slot_key] is not None:
             value = pre_process_query_value(slot_key, slot_values[slot_key])
-            where_clause += TOP5_WHERE.format(DIMENSIONS.get(dimension).get('column'), value)
+            where_clause += TOP_WHERE.format(DIMENSIONS.get(dimension).get('column'), value)
 
     try:
         # the GROUP BY is by dimension, and the ORDER by is the aggregated fact
         # Example: " GROUP BY {} ORDER BY ticket_sales desc"
-        order_by_group_by = TOP5_ORDERBY.format(DIMENSIONS.get(slot_values.get('dimension')).get('column'))
+        order_by_group_by = TOP_ORDERBY.format(DIMENSIONS.get(slot_values.get('dimension')).get('column'))
         order_by_group_by += " LIMIT {}".format(slot_values.get('count'))
     except KeyError:
         # TODO: is this necessary?
@@ -647,7 +659,7 @@ def top_five_intent_handler(intent_request):
     method_duration_string = 'method time = %.0f' % (method_duration * 1000) + ' ms'
     logger.debug('<<Jasper>> "Method duration is: ' + method_duration_string) 
     
-    logger.debug('<<Jasper>> top_five_intent_handler() - sessions_attributes = %s, response = %s', session_attributes, {'contentType': 'PlainText','content': response_string})
+    logger.debug('<<Jasper>> top_intent_handler() - sessions_attributes = %s, response = %s', session_attributes, {'contentType': 'PlainText','content': response_string})
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
