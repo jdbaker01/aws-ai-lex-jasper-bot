@@ -102,7 +102,18 @@ def dispatch(intent_request):
     logger.debug('<<Jasper>> dispatch userId={}, intentName={}'.format(intent_request['userId'], intent_request['currentIntent']['name']))
 
     intent_name = intent_request['currentIntent']['name']
-    
+
+    if intent_name is not None:
+        if INTENT_CONFIG.get(intent_name, False):
+            return INTENT_CONFIG[intent_name]['handler'](intent_request)    # dispatch to the event handler
+        else:
+            return close(session_attributes, 'Fulfilled',
+                {'contentType': 'PlainText', 'content': 'Sorry, I don\'t support the intent called "' + intent_name + '".'})
+    else:
+        return close(session_attributes, 'Fulfilled',
+            {'contentType': 'PlainText', 'content': 'Missing intent name.'})
+
+'''    
     if intent_name == 'HelloX':
         return hello_intent_handler(intent_request)
         
@@ -129,6 +140,7 @@ def dispatch(intent_request):
             {'contentType': 'PlainText', 'content': 'Sorry, I don\'t support the intent called "' + intent_name + '".'})
 
     raise Exception('Intent "' + intent_name + '" not supported')
+'''
 
 def hello_intent_handler(intent_request):
     session_attributes['resetCount'] = '0'
