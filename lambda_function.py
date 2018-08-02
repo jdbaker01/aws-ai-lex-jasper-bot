@@ -6,23 +6,15 @@ import json
 import pprint
 import os
 
+#
+# See additional configuration parameters at bottom 
+#
+
 ATHENA_DB = ''                  # set in environment variable
 ATHENA_OUTPUT_LOCATION = ''     # set in environment variable
 
 ORIGINAL_VALUE = 0
 TOP_RESOLUTION = 1
-
-INTENT_CONFIG = {
-    'HelloX':      {'handler': hello_intent_handler},
-    'CountX':      {'handler': count_intent_handler},
-    'CompareX':    {'handler': compare_intent_handler},
-    'TopX':        {'handler': top_intent_handler},
-    'ResetX':      {'handler': reset_intent_handler},
-    'RefreshX':    {'handler': refresh_intent_handler},
-    'GoodByeX':    {'handler': goodbye_intent_handler}
-}
-
-# TODO: rewrite the dispatch function
 
 SLOT_CONFIG = {
     'event_name':       {'type': TOP_RESOLUTION, 'remember': True,  'error': 'I couldn\'t find an event called "{}".'},
@@ -950,6 +942,17 @@ def post_process_venue_name(value):
     if not isinstance(value, str): return value
     value = value.title().replace('Us ', 'US ')
     return value
+
+# TODO: rewrite the dispatch function
+INTENT_CONFIG = {
+    'HelloX':      {'handler': hello_intent_handler},
+    'CountX':      {'handler': count_intent_handler},
+    'CompareX':    {'handler': compare_intent_handler},
+    'TopX':        {'handler': top_intent_handler},
+    'ResetX':      {'handler': reset_intent_handler},
+    'RefreshX':    {'handler': refresh_intent_handler},
+    'GoodByeX':    {'handler': goodbye_intent_handler}
+}
 
 DIMENSION_FORMATTERS = {
     'event_name':  {'format': 'For {}',              'function': str.title},
