@@ -84,6 +84,7 @@ logger.setLevel(logging.DEBUG)
 class SlotError(Exception):
     pass
 
+
 def lambda_handler(event, context):
     # do I need to declare global session_attributes here?
     session_attributes = event['sessionAttributes'] 
@@ -97,6 +98,7 @@ def lambda_handler(event, context):
             {'contentType': 'PlainText', 'content': config_error})   
     else:
         return dispatch(event)
+
 
 def dispatch(intent_request):
     logger.debug('<<Jasper>> dispatch userId={}, intentName={}'.format(intent_request['userId'], intent_request['currentIntent']['name']))
@@ -113,34 +115,6 @@ def dispatch(intent_request):
         return close(session_attributes, 'Fulfilled',
             {'contentType': 'PlainText', 'content': 'Missing intent name.'})
 
-'''    
-    if intent_name == 'HelloX':
-        return hello_intent_handler(intent_request)
-        
-    elif intent_name == 'CountX':
-        return count_intent_handler(intent_request)
-        
-    elif intent_name == 'CompareX':
-        return compare_intent_handler(intent_request)
-        
-    elif intent_name == 'TopX':
-        return top_intent_handler(intent_request)
-        
-    elif intent_name == 'ResetX':
-        return reset_intent_handler(intent_request)
-        
-    elif intent_name == 'RefreshX':
-        return refresh_intent_handler(intent_request)
-        
-    elif intent_name == 'GoodByeX':
-        return goodbye_intent_handler(intent_request)
-        
-    else:
-        return close(session_attributes, 'Fulfilled',
-            {'contentType': 'PlainText', 'content': 'Sorry, I don\'t support the intent called "' + intent_name + '".'})
-
-    raise Exception('Intent "' + intent_name + '" not supported')
-'''
 
 def hello_intent_handler(intent_request):
     session_attributes['resetCount'] = '0'
@@ -157,6 +131,7 @@ def hello_intent_handler(intent_request):
     else: response_string = 'Ok'
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
+
 
 def reset_intent_handler(intent_request):
     global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
@@ -208,6 +183,7 @@ def reset_intent_handler(intent_request):
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
+
 def goodbye_intent_handler(intent_request):
     session_attributes['greetingCount'] = '0'
     session_attributes['resetCount'] = '0'
@@ -224,6 +200,7 @@ def goodbye_intent_handler(intent_request):
     else: response_string = 'Ok'
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
+
 
 def count_intent_handler(intent_request):
     global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
@@ -295,6 +272,7 @@ def count_intent_handler(intent_request):
     response_string += '.'
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
+
 
 def compare_intent_handler(intent_request):
     global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
@@ -478,6 +456,7 @@ def compare_intent_handler(intent_request):
     logger.debug('<<Jasper>> "Method duration is: ' + method_duration_string) 
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
+
 
 def top_intent_handler(intent_request):
     global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
@@ -667,16 +646,24 @@ def top_intent_handler(intent_request):
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
+
+#
+# parameters for Refresh intent
+#
+REFRESH_QUERY = 'SELECT DISTINCT event_name from event ORDER BY event_name'
+REFRESH_SLOT = 'event_nameX'
+REFRESH_INTENT = 'CompareX'
+REFRESH_BOT = 'JasperX'
+
 def refresh_intent_handler(intent_request):
     # TODO: move to class variable?
     athena = boto3.client('athena')
 
     # Build and execute query
-    query_string = "SELECT DISTINCT event_name from event ORDER BY event_name"
     logger.debug('<<Jasper>> Athena Query String = ' + query_string)            
 
     response = athena.start_query_execution(
-        QueryString=query_string,
+        QueryString=REFRESH_QUERY,
         QueryExecutionContext={'Database': ATHENA_DB},
         ResultConfiguration={
             'OutputLocation': ATHENA_OUTPUT_LOCATION,
@@ -693,7 +680,6 @@ def refresh_intent_handler(intent_request):
         if (status == 'RUNNING'):
             #logger.debug('<<Jasper>> query status = ' + status + ': sleep 200ms') 
             time.sleep(0.200)
-
 
     duration = time.perf_counter() - start
     duration_string = 'query duration = %.0f' % (duration * 1000) + ' ms'
@@ -718,31 +704,32 @@ def refresh_intent_handler(intent_request):
     logger.debug('<<Jasper>> "st_values = ' + pprint.pformat(st_values)) 
         
     lex_models = boto3.client('lex-models')
-    response = lex_models.get_slot_type(name='event_name', version='$LATEST')
+    response = lex_models.get_slot_type(name=REFRESH_SLOT, version='$LATEST')
     logger.debug('<<Jasper>> "boto3 version = ' + boto3.__version__) 
     logger.debug('<<Jasper>> "Lex slot event_name = ' + pprint.pformat(response, indent=4)) 
     logger.debug('<<Jasper>> "Lex slot event_name checksum = ' + response['checksum']) 
     logger.debug('<<Jasper>> "Lex slot event_name valueSelectionStrategy = ' + response['valueSelectionStrategy']) 
     
     try:
-        st_name = 'event_name'
-        st_desc = 'Events in the TICKIT database'
+        # st_name = 'event_name'  CLEANUP
+        # st_desc = 'Events in the TICKIT database'  CLEANUP
         logger.debug('<<Jasper>> "st_values = ' + pprint.pformat(st_values)) 
 
         st_checksum = response['checksum']
         # TODO: next line incorrect remove after testing
-        st_strategy = "ORIGINAL_VALUE"    #  response['valueSelectionStrategy']
-        response = lex_models.put_slot_type(name=st_name,
-                                            description=st_desc,
+        # st_strategy = "ORIGINAL_VALUE"    #  response['valueSelectionStrategy']   CLEANUP
+        response = lex_models.put_slot_type(name=response['name'],
+                                            description=response['description'],
                                             enumerationValues=st_values,
                                             checksum=response['checksum'],
-                                            valueSelectionStrategy=st_strategy
+                                            valueSelectionStrategy=response['valueSelectionStrategy']
                                             )
     except KeyError:
         pass
     
+    # test this!
     '''
-    response = lex_models.get_intent(name='CompareX', version='$LATEST')
+    response = lex_models.get_intent(name=REFRESH_INTENT', version='$LATEST')
     logger.debug('<<Jasper>> Lex get-intent = ' + pprint.pformat(response, indent=4)) 
     logger.debug('<<Jasper.. Lex get-intent keys = ' + pprint.pformat(response.keys()))
     
@@ -763,10 +750,10 @@ def refresh_intent_handler(intent_request):
     
     ## TODO: need to update all Intents that use the slot, to rev the version referenced.
 
-    response = lex_models.get_bot(name='JasperX', versionOrAlias='$LATEST')
-    logger.debug('<<Jasper>> Lex bot Jasper = ' + pprint.pformat(response, indent=4)) 
+    response = lex_models.get_bot(name=REFRESH_BOT, versionOrAlias='$LATEST')
+    logger.debug('<<Jasper>> Lex bot = ' + pprint.pformat(response, indent=4)) 
     
-    response = lex_models.put_bot(name='JasperX',
+    response = lex_models.put_bot(name=REFRESH_BOT,
                                   description=response['description'],
                                   intents=response['intents'],
                                   clarificationPrompt=response['clarificationPrompt'],
@@ -779,10 +766,11 @@ def refresh_intent_handler(intent_request):
                                   childDirected=response['childDirected']
                                  )
 
-    logger.debug('<<Jasper>> Lex put bot JasperX = ' + pprint.pformat(response, indent=4)) 
+    logger.debug('<<Jasper>> Lex put bot = ' + pprint.pformat(response, indent=4)) 
 
     response_string = "I've refreshed the events dimension from the database.  You may need to rebuild me."
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
+
 
 def execute_athena_query(query_string):
     # TODO: change this to a decorator
@@ -819,6 +807,7 @@ def execute_athena_query(query_string):
 
     return response
 
+
 def get_slot_values(slot_values, intent_request):
     if slot_values is None:
         slot_values = {key: None for key in SLOT_CONFIG}
@@ -841,6 +830,7 @@ def get_slot_values(slot_values, intent_request):
     
     return slot_values
 
+
 def get_remembered_slot_values(slot_values, session_attributes):
     str = session_attributes.get('rememberedSlots')
     remembered_slot_values = json.loads(str) if str is not None else {key: None for key in SLOT_CONFIG}
@@ -859,12 +849,14 @@ def get_remembered_slot_values(slot_values, session_attributes):
                 
     return slot_values
 
+
 def remember_slot_values(slot_values, session_attributes):
     if slot_values is None:
         slot_values = {key: None for key,config in SLOT_CONFIG.items() if config['remember']}
     session_attributes['rememberedSlots'] = json.dumps(slot_values)
     logger.debug('<<Jasper>> Storing updated slot values: %s', slot_values)           
     return slot_values
+
 
 def get_jasper_config():
     global ATHENA_DB
@@ -880,6 +872,7 @@ def get_jasper_config():
     logger.debug('<<Jasper>> athena_db = ' + ATHENA_DB)
     logger.debug('<<Jasper>> athena_output_location = ' + ATHENA_OUTPUT_LOCATION)
 
+
 def close(session_attributes, fulfillment_state, message):
     response = {
         'sessionAttributes': session_attributes,
@@ -894,6 +887,7 @@ def close(session_attributes, fulfillment_state, message):
 
     return response
 
+
 def increment_counter(session_attributes, counter):
     counter_value = session_attributes.get(counter, '0')
 
@@ -903,6 +897,7 @@ def increment_counter(session_attributes, counter):
     session_attributes[counter] = count
 
     return count
+
 
 # adjust dimension values as necessary prior to inserting into where clause
 def pre_process_query_value(key, value):
@@ -922,12 +917,14 @@ def pre_process_query_value(key, value):
        
     return value
 
+
 # adjust slot values as necessary after reading from intent slots
 def post_process_slot_value(key, value):
     if key == 'venue_state':
         value = US_STATES.get(value.lower(), value)
         logger.debug('<<Jasper>> post_process_slot_value() - returning key=%s, value=%s', key, value)
     return value
+
 
 def post_process_dimension_output(key, value):
     logger.debug('<<Jasper>> post_process_dimension_output(%s, %s)', key, value)
@@ -938,16 +935,19 @@ def post_process_dimension_output(key, value):
     logger.debug('<<Jasper>> post_process_dimension_output() - returning key=%s, value=%s', key, value)
     return value
 
+
 # helper functions for pre- and post-processors
 def get_state_name(value):
     if not isinstance(value, str): return value
     state_name = REVERSE_US_STATES.get(value.upper())
     return state_name if state_name else value.title()
 
+
 def get_month_name(value):
     if not isinstance(value, str): return value
     month_name = MONTH_NAMES.get(value.upper()[0:3])
     return month_name if month_name else value.title()
+
 
 def post_process_venue_name(value):
     # TODO: get the value as it appears in the database

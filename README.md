@@ -7,4 +7,5 @@ TODO:
 1. Default region environment variable?
 2. Lambda function seems to not be remembering properly - probably because I changed slot/intent names
    - example: refresh_intent_handler, line 767, it is rebuilding Jasper not JasperX
+   - Just rewrote the dispatcher
 3. Parameterize the URI for the Lambda handler in the intents
