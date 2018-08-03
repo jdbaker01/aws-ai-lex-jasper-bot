@@ -660,7 +660,7 @@ def refresh_intent_handler(intent_request):
     athena = boto3.client('athena')
 
     # Build and execute query
-    logger.debug('<<Jasper>> Athena Query String = ' + query_string)            
+    logger.debug('<<Jasper>> Athena Query String = ' + REFRESH_QUERY)            
 
     response = athena.start_query_execution(
         QueryString=REFRESH_QUERY,
@@ -728,7 +728,6 @@ def refresh_intent_handler(intent_request):
         pass
     
     # test this!
-    '''
     response = lex_models.get_intent(name=REFRESH_INTENT', version='$LATEST')
     logger.debug('<<Jasper>> Lex get-intent = ' + pprint.pformat(response, indent=4)) 
     logger.debug('<<Jasper.. Lex get-intent keys = ' + pprint.pformat(response.keys()))
@@ -746,7 +745,6 @@ def refresh_intent_handler(intent_request):
                                      # parentIntentSignature=response['parentIntentSignature'],
                                      checksum=response['checksum']
                                     )
-    '''
     
     ## TODO: need to update all Intents that use the slot, to rev the version referenced.
 
