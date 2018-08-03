@@ -711,13 +711,9 @@ def refresh_intent_handler(intent_request):
     logger.debug('<<Jasper>> "Lex slot event_name valueSelectionStrategy = ' + response['valueSelectionStrategy']) 
     
     try:
-        # st_name = 'event_name'  CLEANUP
-        # st_desc = 'Events in the TICKIT database'  CLEANUP
         logger.debug('<<Jasper>> "st_values = ' + pprint.pformat(st_values)) 
 
         st_checksum = response['checksum']
-        # TODO: next line incorrect remove after testing
-        # st_strategy = "ORIGINAL_VALUE"    #  response['valueSelectionStrategy']   CLEANUP
         response = lex_models.put_slot_type(name=response['name'],
                                             description=response['description'],
                                             enumerationValues=st_values,
@@ -727,7 +723,6 @@ def refresh_intent_handler(intent_request):
     except KeyError:
         pass
     
-    # test this!
     response = lex_models.get_intent(name=REFRESH_INTENT, version='$LATEST')
     logger.debug('<<Jasper>> Lex get-intent = ' + pprint.pformat(response, indent=4)) 
     logger.debug('<<Jasper.. Lex get-intent keys = ' + pprint.pformat(response.keys()))
