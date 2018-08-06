@@ -723,6 +723,8 @@ def refresh_intent_handler(intent_request):
     except KeyError:
         pass
     
+    # is put-intent needed when you put a slot?
+    '''
     response = lex_models.get_intent(name=REFRESH_INTENT, version='$LATEST')
     logger.debug('<<Jasper>> Lex get-intent = ' + pprint.pformat(response, indent=4)) 
     logger.debug('<<Jasper.. Lex get-intent keys = ' + pprint.pformat(response.keys()))
@@ -731,16 +733,12 @@ def refresh_intent_handler(intent_request):
                                      description=response['description'],
                                      slots=response['slots'],
                                      sampleUtterances=response['sampleUtterances'],
-                                     # confirmationPrompt=response['confirmationPrompt'],
-                                     # rejectionStatement=response['rejectionStatement'],
-                                     # followUpPrompt=response['followUpPrompt'],
                                      conclusionStatement=response['conclusionStatement'],
-                                     # dialogCodeHook=response['dialogCodeHook'],
                                      fulfillmentActivity=response['fulfillmentActivity'],
-                                     # parentIntentSignature=response['parentIntentSignature'],
                                      checksum=response['checksum']
                                     )
     
+    '''
     ## TODO: need to update all Intents that use the slot, to rev the version referenced.
 
     response = lex_models.get_bot(name=REFRESH_BOT, versionOrAlias='$LATEST')
