@@ -7,7 +7,7 @@ BOT="JasperX"
 INTENTS="CompareX CountX GoodByeX HelloX RefreshX ResetX TopX"
 SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
 LAMBDA="JasperX"
-ATHENA_DB="tickit-x"
+ATHENA_DB="tickit-y"
 ATHENA_OUTPUT_LOCATION="s3://ai-aod-demo-bryost-athena-output"
 
 # deploy the Lambda intent handler
