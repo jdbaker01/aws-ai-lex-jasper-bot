@@ -412,6 +412,7 @@ def compare_intent_handler(intent_request):
                              response['ResultSet']['Rows'][2]['Data'][0]['VarCharValue'],  
                              float(response['ResultSet']['Rows'][2]['Data'][1]['VarCharValue']) ] } )
 
+        # TODO: fix this.  Test case: top cities for chicago, compare sales for phoenix and new york (instead of new york city)
         # TODO: problem - if you spell an event name incorrectly it may find it in the SQL
         # query, but it will create an error in the result_set[] lookup
 

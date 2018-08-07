@@ -6,4 +6,5 @@ Jasper is a business intelligence chatbot that can respond to user questions abo
 TODO: 
 1. Default region environment variable?
 2. Parameterize the URI for the Lambda handler in the intents
+3. Fix key error bug in lambda line 421
 4. IN refresh, put_intent.  Was not building, checksum error on CompareX intent.  Working now, test more.  Look for the CLEANUP lines in refresh_intent_handler and clean them up
