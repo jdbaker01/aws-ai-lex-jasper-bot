@@ -133,8 +133,6 @@ def hello_intent_handler(intent_request):
 
 
 def reset_intent_handler(intent_request):
-    # global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
-
     session_attributes['greetingCount'] = '1'
     session_attributes['finishedCount'] = '0'
     
@@ -202,8 +200,6 @@ def goodbye_intent_handler(intent_request):
 
 
 def count_intent_handler(intent_request):
-    # global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
-
     method_start = time.perf_counter()
     
     athena = boto3.client('athena')
@@ -274,8 +270,6 @@ def count_intent_handler(intent_request):
 
 
 def compare_intent_handler(intent_request):
-    # global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
-
     method_start = time.perf_counter()
     
     athena = boto3.client('athena')
@@ -456,8 +450,6 @@ def compare_intent_handler(intent_request):
 
 
 def top_intent_handler(intent_request):
-    # global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
-
     # TODO: make this a decorator
     method_start = time.perf_counter()
     
