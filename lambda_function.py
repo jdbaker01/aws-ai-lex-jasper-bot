@@ -86,7 +86,6 @@ class SlotError(Exception):
 
 
 def lambda_handler(event, context):
-    # do I need to declare global session_attributes here?
     session_attributes = event['sessionAttributes'] 
     session_attributes = {}
 
@@ -134,7 +133,7 @@ def hello_intent_handler(intent_request):
 
 
 def reset_intent_handler(intent_request):
-    global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
+    # global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
 
     session_attributes['greetingCount'] = '1'
     session_attributes['finishedCount'] = '0'
@@ -203,7 +202,7 @@ def goodbye_intent_handler(intent_request):
 
 
 def count_intent_handler(intent_request):
-    global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
+    # global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
 
     method_start = time.perf_counter()
     
@@ -275,14 +274,12 @@ def count_intent_handler(intent_request):
 
 
 def compare_intent_handler(intent_request):
-    global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
+    # global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
 
     method_start = time.perf_counter()
     
-    # TODO: move to class variable?
     athena = boto3.client('athena')
     
-    # TODO: move to function?
     session_attributes['greetingCount'] = '1'
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
@@ -459,7 +456,7 @@ def compare_intent_handler(intent_request):
 
 
 def top_intent_handler(intent_request):
-    global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
+    # global event_name, event_month, venue_name, venue_city, venue_state, cat_desc, count, dimension
 
     # TODO: make this a decorator
     method_start = time.perf_counter()
@@ -655,7 +652,6 @@ REFRESH_INTENT = 'CompareX'
 REFRESH_BOT = 'JasperX'
 
 def refresh_intent_handler(intent_request):
-    # TODO: move to class variable?
     athena = boto3.client('athena')
 
     # Build and execute query
@@ -722,7 +718,6 @@ def refresh_intent_handler(intent_request):
     except KeyError:
         pass
     
-    # is put-intent needed when you put a slot?
     response = lex_models.get_intent(name=REFRESH_INTENT, version='$LATEST')
     logger.debug('<<Jasper>> Lex get-intent = ' + pprint.pformat(response, indent=4)) 
     logger.debug('<<Jasper.. Lex get-intent keys = ' + pprint.pformat(response.keys()))
