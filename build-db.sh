@@ -20,7 +20,7 @@ aws glue create-database --database-input "Name=$ATHENA_DB_NAME,Description=$ATH
 #
 # Create TICKIT users table in Athena
 #
-aws s3 cp $SOURCE_DATA/users/allusers_pipe.txt $ATHENA_BUCKET/users/allusers_pipe.txt
+aws s3 cp $SOURCE_DATA/users/allusers_pipe.txt $ATHENA_BUCKET/users/allusers_pipe.txt --recursive --source-region us-west-2 --region us-east-1
 
 aws athena start-query-execution --query-string "create external table users (user_id INT, username STRING, firstname STRING, lastname STRING, city STRING, state STRING, email STRING, phone STRING, like_sports BOOLEAN, liketheatre BOOLEAN, likeconcerts BOOLEAN, likejazz BOOLEAN, likeclassical BOOLEAN, likeopera BOOLEAN, likerock BOOLEAN, likevegas BOOLEAN, likebroadway BOOLEAN, likemusicals BOOLEAN) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' LOCATION '$ATHENA_BUCKET/users';" --query-execution-context "Database=$ATHENA_DB_NAME" --result-configuration "OutputLocation=$ATHENA_BUCKET/output/"
 

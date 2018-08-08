@@ -395,7 +395,6 @@ def compare_intent_handler(intent_request):
         response_string += " and " + post_process_dimension_output(key, the_2nd_dimension_value) + "."
 
     elif (result_count == 1):
-        #TODO fix this
         if len(response_string) > 0:
             response_string += ', there '
         else:
@@ -465,7 +464,6 @@ def top_intent_handler(intent_request):
     # TODO: make this a decorator
     method_start = time.perf_counter()
     
-    # TODO: move to function?
     session_attributes['greetingCount'] = '1'
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
@@ -945,7 +943,6 @@ def post_process_venue_name(value):
     value = value.title().replace('Us ', 'US ')
     return value
 
-# TODO: rewrite the dispatch function
 INTENT_CONFIG = {
     'HelloX':      {'handler': hello_intent_handler},
     'CountX':      {'handler': count_intent_handler},
