@@ -479,7 +479,6 @@ def top_intent_handler(intent_request):
         return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
     # If switching dimension, forget the prior remembered value for that dimension
-    # TODO: is there a bug with picking a dimension and not clearing the corresponding value?
     dimension_slot = DIMENSIONS.get(slot_values.get('dimension')).get('slot')
     if dimension_slot is not None:
         slot_values[dimension_slot] = None
@@ -556,10 +555,6 @@ def top_intent_handler(intent_request):
     # Build response text for Lex
     response_string = ''
     result_count = len(response['ResultSet']['Rows']) - 1
-    
-    # FIX THIS: 
-    # Refactor these if statements
-    # can you do anything about "in Chicago, Illinois"? as an output optimization?  Perhaps a post-postprocessor?
     
     if result_count < int(slot_values.get('count', 0)):
         if result_count == 0:
@@ -735,7 +730,7 @@ def refresh_intent_handler(intent_request):
                                   abortStatement=response['abortStatement'],
                                   idleSessionTTLInSeconds=response['idleSessionTTLInSeconds'],
                                   voiceId=response['voiceId'],
-                                  processBehavior='BUILD',
+                                  processBehavior='SAVE',
                                   locale=response['locale'],
                                   checksum=response['checksum'],
                                   childDirected=response['childDirected']
