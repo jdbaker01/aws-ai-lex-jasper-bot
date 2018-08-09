@@ -743,6 +743,7 @@ def refresh_intent_handler(intent_request):
 
     logger.debug('<<Jasper>> Lex put bot = ' + pprint.pformat(response, indent=4)) 
 
+    # TODO: this seems to be building automatically based on that ^ parameter BUILD there.  Says: NOT_BUILT
     response_string = "I've refreshed the events dimension from the database.  You may need to rebuild me."
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
