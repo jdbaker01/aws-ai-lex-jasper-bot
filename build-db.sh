@@ -6,7 +6,7 @@ SOURCE_DATA="s3://awssampledbuswest2/tickit/spectrum"
 SOURCE_DATA_REGION="us-west-2"
 ATHENA_BUCKET="s3://ai-blogpost-tickit-db-y"
 ATHENA_BUCKET_REGION="us-east-1"
-ATHENA_DB_NAME="tickit-y"
+ATHENA_DB_NAME="tickit-z"
 ATHENA_DB_DESCRIPTION="Test TICKIT database for Lex business intelligence bot (Jasper)"
 
 #
