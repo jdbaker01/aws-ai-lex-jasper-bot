@@ -584,7 +584,7 @@ def top_intent_handler(intent_request):
             if DIMENSION_FORMATTERS.get(slot_key) is not None:
                 output_text = DIMENSION_FORMATTERS[slot_key]['function'](slot_values.get(slot_key))
                 output_text = DIMENSION_FORMATTERS[slot_key]['format'].lower().format(output_text)
-                response_string += ', ' + output_text
+                response_string += ' ' + output_text + ', '
                 logger.debug('<<Jasper>> top5_formatter[%s] = %s', slot_key, output_text)
 
     if result_count == 0:
