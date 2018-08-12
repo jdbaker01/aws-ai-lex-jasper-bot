@@ -6,10 +6,7 @@ Jasper is a business intelligence chatbot that can respond to user questions abo
 TODO: 
 1. Default region environment variable?
 2. Parameterize the URI for the Lambda handler in the intents
-2. Fix key error bug in lambda line 421
-3. build-db.sh - incorporate it into the CodePipeline as a separate CodeBuild project, triggered from same repo
-4. playing with branches - be careful!
-5. is put-bot rebuilding or not?
+3. Fix key error bug in lambda line 421
+4. Try pulling from github plus /tree/branchname
 
-another change here
-some change
+
