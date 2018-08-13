@@ -86,7 +86,7 @@ class SlotError(Exception):
 
 
 def lambda_handler(event, context):
-    ## session_attributes = event['sessionAttributes'] 
+    ## ALEXA session_attributes = event['sessionAttributes']
     session_attributes = {}
 
     logger.debug('<<Jasper>> Lex event info = ' + json.dumps(event))
@@ -100,7 +100,7 @@ def lambda_handler(event, context):
 
 
 def dispatch(intent_request):
-    logger.debug('<<Jasper>> dispatch userId={}, intentName={}'.format(intent_request['userId'], intent_request['currentIntent']['name']))
+    ## ALEXA logger.debug('<<Jasper>> dispatch userId={}, intentName={}'.format(intent_request['userId'], intent_request['currentIntent']['name']))
 
     intent_name = intent_request['currentIntent']['name']
 
