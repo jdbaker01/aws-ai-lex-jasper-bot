@@ -17,6 +17,7 @@ aws lambda create-function --function-name $LAMBDA --description "$LAMBDA Intent
 echo "Adding permission to invoke Lambda handler function $LAMBDA from Amazon Lex"
 aws lambda add-permission --function-name $LAMBDA --statement-id chatbot-fulfillment --action "lambda:InvokeFunction" --principal "lex.amazonaws.com" >/dev/null
 
+
 # build the custom slot types
 for i in $SLOTS
 do
