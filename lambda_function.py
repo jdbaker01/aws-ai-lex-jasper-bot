@@ -86,7 +86,7 @@ class SlotError(Exception):
 
 
 def lambda_handler(event, context):
-    session_attributes = event['sessionAttributes'] 
+    # session_attributes = event['sessionAttributes'] 
     session_attributes = {}
 
     logger.debug('<<Jasper>> Lex event info = ' + json.dumps(event))
