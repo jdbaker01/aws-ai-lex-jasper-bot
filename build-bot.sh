@@ -17,7 +17,6 @@ aws lambda create-function --function-name $LAMBDA --description "$LAMBDA Intent
 echo "Adding permission to invoke Lambda handler function $LAMBDA from Amazon Lex"
 aws lambda add-permission --function-name $LAMBDA --statement-id chatbot-fulfillment --action "lambda:InvokeFunction" --principal "lex.amazonaws.com" >/dev/null
 
-
 # build the custom slot types
 for i in $SLOTS
 do
@@ -34,10 +33,11 @@ done
 
 # build the bot 
 echo "Creating Bot: $BOT"
-if aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
-then echo "Success: $BOT bot build complete."; exit 0
-else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
-fi
+aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
+# if aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
+# then echo "Success: $BOT bot build complete."; exit 0
+# else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
+# fi
 
 # create bot alias
 echo "Creating bot alias: jasper_test"
