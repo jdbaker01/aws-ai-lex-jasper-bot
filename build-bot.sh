@@ -4,6 +4,7 @@
 #
 
 BOT="JasperX"
+ALIAS="jasper_bot"
 INTENTS="CompareX CountX GoodByeX HelloX RefreshX ResetX TopX"
 SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
 LAMBDA="JasperX"
@@ -20,29 +21,37 @@ aws lambda add-permission --function-name $LAMBDA --statement-id chatbot-fulfill
 # build the custom slot types
 for i in $SLOTS
 do
-	echo "Creating Slot Type: $i"
+	echo "Creating slot type: $i"
 	aws lex-models put-slot-type --name $i --cli-input-json file://slots/$i.json >/dev/null 
 done
 
 # build the intents
 for i in $INTENTS
 do
-	echo "Creating Intent: $i"
+	echo "Creating intent: $i"
 	aws lex-models put-intent --name $i --cli-input-json file://intents/$i.json >/dev/null 
 done
 
 # build the bot 
-echo "Creating Bot: $BOT"
-aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
-# if aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
-# then echo "Success: $BOT bot build complete."; exit 0
-# else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
-# fi
+echo "Creating bot: $BOT"
+if aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
+then echo "Success: $BOT bot build complete."; exit 0
+else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
+fi
 
 # create bot alias
+<<<<<<< HEAD
 echo "Creating bot alias: jasper_bot"
 aws lex-models put-bot-alias --name jasper_bot --bot-name $BOT --bot-version '$LATEST'
 
 # refresh the bot
 echo "Calling refresh intent"
 aws lex-runtime post-text --bot-name $BOT --bot-alias jasper_bot --user-id a_user --input-text "refresh"
+=======
+echo "Creating bot alias: $ALIAS"
+aws lex-models put-bot-alias --name $ALIAS --bot-name $BOT --bot-version '$LATEST'
+
+# refresh the bot
+## echo "Calling refresh intent"
+## aws lex-runtime post-text --bot-name $BOT --bot-alias jasper_bot --user-id a_user --input-text "refresh"
+>>>>>>> bot
