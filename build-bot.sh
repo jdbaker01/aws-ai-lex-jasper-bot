@@ -9,7 +9,6 @@ SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX d
 LAMBDA="JasperX"
 ATHENA_DB="tickit-z"
 ATHENA_OUTPUT_LOCATION="s3://ai-aod-demo-bryost-athena-output"
-SLEEP=2
 
 # deploy the Lambda intent handler
 echo "Creating Lambda handler function: $LAMBDA"
@@ -46,5 +45,4 @@ aws lex-models put-bot-alias --name jasper_test --bot-name $BOT --bot-version '$
 
 # refresh the bot
 echo "Calling refresh intent"
-sleep $SLEEP
-aws lex-runtime post-text --bot-name $BOT --bot-alias jasper_test --user-id bty --input-text "refresh"
+aws lex-runtime post-text --bot-name $BOT --bot-alias jasper_test --user-id a_user --input-text "refresh"
