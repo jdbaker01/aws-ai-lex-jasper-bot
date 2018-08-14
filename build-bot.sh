@@ -3,13 +3,13 @@
 # Builds the bot, intents, and custom slot types
 #
 
-BOT="JasperX"
+# BOT="JasperX"
 ALIAS="jasper_bot"
 INTENTS="CompareX CountX GoodByeX HelloX RefreshX ResetX TopX"
 SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
-LAMBDA="JasperX"
-ATHENA_DB="tickit-z"
-ATHENA_OUTPUT_LOCATION="s3://ai-aod-demo-bryost-athena-output"
+# LAMBDA="JasperX"
+# ATHENA_DB="tickit-z"
+# ATHENA_OUTPUT_LOCATION="s3://ai-aod-demo-bryost-athena-output"
 
 
 # deploy the Lambda intent handler
