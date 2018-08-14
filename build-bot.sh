@@ -10,8 +10,6 @@ LAMBDA="JasperX"
 ATHENA_DB="tickit-z"
 ATHENA_OUTPUT_LOCATION="s3://ai-aod-demo-bryost-athena-output"
 
-# comment
-
 # deploy the Lambda intent handler
 echo "Creating Lambda handler function: $LAMBDA"
 aws lambda create-function --function-name $LAMBDA --description "$LAMBDA Intent Handler" --timeout 300 --zip-file fileb://JasperLambda.zip --role arn:aws:iam::687551564203:role/LambdaServiceRoleAthenaS3 --handler lambda_function.lambda_handler --runtime python3.6 --environment "Variables={ATHENA_DB=$ATHENA_DB,ATHENA_OUTPUT_LOCATION=$ATHENA_OUTPUT_LOCATION}" >/dev/null
@@ -35,8 +33,16 @@ done
 
 # build the bot 
 echo "Creating Bot: $BOT"
-if aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
-then echo "Success: $BOT bot build complete."; exit 0
-else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
-fi
+aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
+# if aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
+# then echo "Success: $BOT bot build complete."; exit 0
+# else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
+# fi
 
+# create bot alias
+echo "Creating bot alias: jasper_test"
+aws lex-models put-bot-alias --name jasper_test --bot-name $BOT --bot-version '$LATEST'
+
+# refresh the bot
+echo "Calling refresh intent"
+aws lex-runtime post-text --bot-name $BOT --bot-alias jasper_test --user-id bty --input-text "refresh"

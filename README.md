@@ -8,5 +8,6 @@ TODO:
 2. Parameterize the URI for the Lambda handler in the intents
 3. Fix key error bug in lambda line 421
 4. Try pulling from github plus /tree/branchname
+5. Can't figure out the IAM policy and role to allow access to SSM parameter store
 
 
