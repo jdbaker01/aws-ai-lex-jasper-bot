@@ -20,19 +20,19 @@ aws lambda add-permission --function-name $LAMBDA --statement-id chatbot-fulfill
 # build the custom slot types
 for i in $SLOTS
 do
-	echo "Creating Slot Type: $i"
+	echo "Creating slot type: $i"
 	aws lex-models put-slot-type --name $i --cli-input-json file://slots/$i.json >/dev/null 
 done
 
 # build the intents
 for i in $INTENTS
 do
-	echo "Creating Intent: $i"
+	echo "Creating intent: $i"
 	aws lex-models put-intent --name $i --cli-input-json file://intents/$i.json >/dev/null 
 done
 
 # build the bot 
-echo "Creating Bot: $BOT"
+echo "Creating bot: $BOT"
 if aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
 then echo "Success: $BOT bot build complete."; exit 0
 else echo "Error: $BOT bot build failed, check the log for errors"; exit 1

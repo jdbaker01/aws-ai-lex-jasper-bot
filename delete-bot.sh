@@ -1,3 +1,4 @@
+#!/bin/bash
 
 #
 # Deletes the bot, intents, and custom slot types
@@ -16,43 +17,55 @@ SLEEP=2
 ## aws lex-models delete-bot-alias --name jasper_test --bot-name $BOT
 
 # delete the bot if it exists
-if aws lex-models get-bot --name $BOT --version-or-alias '$LATEST' >/dev/null
+echo -n "Checking for existing bot $BOT... " 
+if aws lex-models get-bot --name $BOT --version-or-alias '$LATEST' >/dev/null 2>&1
 then 
     sleep $SLEEP
-    echo "Deleting Bot: $BOT"
+    echo "deleting."
     aws lex-models delete-bot --name $BOT
     sleep $SLEEP
+else
+    echo "not found."
 fi
 
 # delete the intents
 for i in $INTENTS
 do
-    if aws lex-models get-intent --name $i --intent-version '$LATEST' >/dev/null
+    echo -n "Checking for existing intent $i... "
+    if aws lex-models get-intent --name $i --intent-version '$LATEST' >/dev/null 2>&1
     then 
         sleep $SLEEP
-        echo "Deleting Intent: $i"
+        echo "deleting."
         aws lex-models delete-intent --name $i
         sleep $SLEEP
+    else
+        echo "not found."
     fi
 done
 
 # delete the custom slot types
 for i in $SLOTS
 do
-    if aws lex-models get-slot-type --name $i --slot-type-version '$LATEST' >/dev/null
+    echo -n "Checking for existing slot type $i... "
+    if aws lex-models get-slot-type --name $i --slot-type-version '$LATEST' >/dev/null 2>&1
     then 
         sleep $SLEEP
-        echo "Deleting Slot Type: $i"
+        echo "deleting."
         aws lex-models delete-slot-type --name $i
         sleep $SLEEP
+    else
+        echo "not found."
     fi
 done
  
 # delete the lambda function
-if aws lambda get-function --function-name $LAMBDA >/dev/null
+echo -n "Checking for existing Lambda function $LAMBDA... "
+if aws lambda get-function --function-name $LAMBDA >/dev/null 2>&1
 then 
     sleep $SLEEP
-    echo "Deleting Lambda handler function: $LAMBDA"
+    echo "deleting."
     aws lambda delete-function --function-name $LAMBDA
     sleep $SLEEP
+else
+    echo "not found."
 fi
