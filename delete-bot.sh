@@ -19,7 +19,9 @@ echo -n "Checking for existing bot alias $ALIAS... "
 if aws lex-models get-bot-alias --name $ALIAS --bot-name $BOT >/dev/null 2>&1
 then
     echo "deleting."
+    sleep $SLEEP
     aws lex-models delete-bot-alias --name $ALIAS --bot-name $BOT
+    sleep $SLEEP
 else
     echo "not found."
 fi
@@ -31,6 +33,7 @@ then
     echo "deleting."
     sleep $SLEEP
     aws lex-models delete-bot --name $BOT
+    sleep $SLEEP
 else
     echo "not found."
 fi
@@ -44,6 +47,7 @@ do
         echo "deleting."
         sleep $SLEEP
         aws lex-models delete-intent --name $i
+        sleep $SLEEP
     else
         echo "not found."
     fi
@@ -58,6 +62,7 @@ do
         echo "deleting."
         sleep $SLEEP
         aws lex-models delete-slot-type --name $i
+        sleep $SLEEP
     else
         echo "not found."
     fi
@@ -70,6 +75,7 @@ then
     echo "deleting."
     sleep $SLEEP
     aws lambda delete-function --function-name $LAMBDA
+    sleep $SLEEP
 else
     echo "not found."
 fi

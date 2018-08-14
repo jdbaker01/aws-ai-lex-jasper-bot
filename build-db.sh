@@ -14,6 +14,7 @@ ATHENA_DB_DESCRIPTION="Test TICKIT database for Lex business intelligence bot (J
 #
 ### aws s3 mb $ATHENA_BUCKET
 
+# comment
 
 #
 # Delete TICKTI database if it exists
