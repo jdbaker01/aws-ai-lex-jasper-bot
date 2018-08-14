@@ -4,6 +4,7 @@
 #
 
 BOT="JasperX"
+ALIAS="jasper_bot"
 INTENTS="CompareX CountX GoodByeX HelloX RefreshX ResetX TopX"
 SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
 LAMBDA="JasperX"
@@ -39,8 +40,8 @@ else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
 fi
 
 # create bot alias
-## echo "Creating bot alias: jasper_bot"
-## aws lex-models put-bot-alias --name jasper_bot --bot-name $BOT --bot-version '$LATEST'
+echo "Creating bot alias: $ALIAS"
+aws lex-models put-bot-alias --name $ALIAS --bot-name $BOT --bot-version '$LATEST'
 
 # refresh the bot
 ## echo "Calling refresh intent"
