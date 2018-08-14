@@ -12,7 +12,7 @@ LAMBDA="JasperX"
 SLEEP=2
 
 # delete bot aliases -- fix this
-echo "Deleting Bot alias: jasper_test"
+echo "Deleting Bot alias: jasper_bot"
 aws lex-models delete-bot-alias --name jasper_test --bot-name $BOT
 
 # delete the bot if it exists
