@@ -7,10 +7,10 @@
 #
 
 BOT="JasperX"
+ALIAS="jasper_bot"
 INTENTS="CompareX CountX GoodByeX HelloX RefreshX ResetX TopX"
 SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
-# LAMBDA="JasperX"
-ALIAS="jasper_bot"
+# LAMBDA variable set by CodeBuild
 SLEEP=2
 
 # delete bot aliases -- fix this

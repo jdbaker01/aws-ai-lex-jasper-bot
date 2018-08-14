@@ -7,9 +7,9 @@ BOT="JasperX"
 ALIAS="jasper_bot"
 INTENTS="CompareX CountX GoodByeX HelloX RefreshX ResetX TopX"
 SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
-# LAMBDA="JasperX"
-# ATHENA_DB="tickit-z"
-# ATHENA_OUTPUT_LOCATION="s3://ai-aod-demo-bryost-athena-output"
+# LAMBDA variable set by CodeBuild
+# ATHENA_DB variable set by CodeBuild
+# ATHENA_OUTPUT_LOCATION variable set by CodeBuild
 
 
 # deploy the Lambda intent handler
