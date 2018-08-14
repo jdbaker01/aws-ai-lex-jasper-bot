@@ -3,7 +3,7 @@
 # Builds the bot, intents, and custom slot types
 #
 
-# BOT="JasperX"
+BOT="JasperX"
 ALIAS="jasper_bot"
 INTENTS="CompareX CountX GoodByeX HelloX RefreshX ResetX TopX"
 SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
