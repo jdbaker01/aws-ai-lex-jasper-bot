@@ -33,17 +33,15 @@ do
 done
 
 # build the bot 
-## echo "Creating bot: $BOT"
-## if aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
-## then echo "Success: $BOT bot build complete."; exit 0
-## else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
-## fi
 echo "Creating bot: $BOT"
-aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
+if aws lex-models put-bot --name $BOT --cli-input-json file://bots/$BOT.json >/dev/null
+then echo "Success: $BOT bot build complete."; exit 0
+else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
+fi
 
 # create bot alias
-echo "Creating bot alias: $ALIAS"
-aws lex-models put-bot-alias --name $ALIAS --bot-name $BOT --bot-version '$LATEST' >/dev/null
+## echo "Creating bot alias: $ALIAS"
+## aws lex-models put-bot-alias --name $ALIAS --bot-name $BOT --bot-version '$LATEST' >/dev/null
 
 # refresh the bot
 ## echo "Calling refresh intent"
