@@ -8,6 +8,6 @@ TODO:
 2. Parameterize the URI for the Lambda handler in the intents
 3. Fix key error bug in lambda line 421
 4. Why is refresh intent not working from the command line.   IT IS A TIMING THING
-5. Finish up the CFN for CodeBuild 'bot' and 'db' - may have to do two CodePipelines
+5. Move environment variables to the CFN
 
 

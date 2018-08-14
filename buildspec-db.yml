@@ -7,7 +7,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - sh build-db.sh
+      - bash build-db.sh
   post_build:
     commands:
       - echo Build completed on `date`

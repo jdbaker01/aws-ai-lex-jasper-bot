@@ -12,9 +12,10 @@ ATHENA_DB_DESCRIPTION="Test TICKIT database for Lex business intelligence bot (J
 #
 # Create S3 bucket for Athena data
 #
-### aws s3 mb $ATHENA_BUCKET
-
-# comment
+if aws s3 ls $ATHENA_BUCKET >/dev/null
+then echo "S3 bucket $ATHENA_BUCKET already exists."
+else echo "Creating S3 bucket $ATHENA_BUCKET."; aws a3 mb $ATHENA_BUCKET
+fi
 
 #
 # Delete TICKTI database if it exists
