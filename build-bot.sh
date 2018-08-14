@@ -40,18 +40,9 @@ else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
 fi
 
 # create bot alias
-<<<<<<< HEAD
-echo "Creating bot alias: jasper_bot"
-aws lex-models put-bot-alias --name jasper_bot --bot-name $BOT --bot-version '$LATEST'
-
-# refresh the bot
-echo "Calling refresh intent"
-aws lex-runtime post-text --bot-name $BOT --bot-alias jasper_bot --user-id a_user --input-text "refresh"
-=======
 echo "Creating bot alias: $ALIAS"
 aws lex-models put-bot-alias --name $ALIAS --bot-name $BOT --bot-version '$LATEST'
 
 # refresh the bot
 ## echo "Calling refresh intent"
 ## aws lex-runtime post-text --bot-name $BOT --bot-alias jasper_bot --user-id a_user --input-text "refresh"
->>>>>>> bot
