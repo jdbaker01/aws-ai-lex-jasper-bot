@@ -6,11 +6,16 @@
 # the intents, then the slot types.
 #
 
-BOT="JasperX"
-ALIAS="jasper_bot"
-INTENTS="CompareX CountX GoodByeX HelloX RefreshX ResetX TopX"
-SLOTS="CompareX CountX PrepositionX ResetX TicketsSoldX TopX VersusX cat_descX dimensionsX event_nameX"
-# LAMBDA variable set by CodeBuild
+#
+# Environment variables to be set in the CodeBuild project
+#
+# $BOT				Name of the Lex bot
+# $ALIAS			Name of the published alias for the bot
+# $INTENTS      		List of intent names for the bot
+# $SLOTS        		List of slot type names for the bot
+# $LAMBDA       		Name of the Lambda fulfillment function for the bot
+#
+
 SLEEP=2
 
 # delete bot aliases -- fix this
