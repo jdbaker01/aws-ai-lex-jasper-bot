@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copies the sample data, and creates the Athena database
+# Copies the sample data and creates the Athena database
 #
 
 #
