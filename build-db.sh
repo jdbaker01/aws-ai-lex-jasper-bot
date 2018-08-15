@@ -15,6 +15,15 @@
 # $SOURCE_DATA_REGION		Source S3 bucket region
 #
 
+echo "Starting build-db.sh"
+echo '$ATHENA_DB' " = $ATHENA_DB"
+echo '$ATHENA_BUCKET' " = $ATHENA_BUCKET"
+echo '$ATHENA_BUCKET_REGION' " = $ATHENA_BUCKET_REGION"
+echo '$ATHENA_DB_DESCRIPTION' " = $ATHENA_DB_DESCRIPTION"
+echo '$SOURCE_DATA' " = $SOURCE_DATA"
+echo '$SOURCE_DATA_REGION' " = $SOURCE_DATA_REGION"
+echo
+
 #
 # Create S3 bucket for Athena data
 #
