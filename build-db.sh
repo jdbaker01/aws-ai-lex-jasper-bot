@@ -57,6 +57,7 @@ aws glue create-database --database-input "Name=$ATHENA_DB,Description=$ATHENA_D
 # Copy the Redshift Spectrum sample data to your Athena bucket
 #
 echo "Copying sample data..."
+echo "aws s3 sync $SOURCE_DATA $ATHENA_BUCKET --source-region $SOURCE_DATA_REGION"
 aws s3 sync $SOURCE_DATA $ATHENA_BUCKET --source-region $SOURCE_DATA_REGION
 
 #
