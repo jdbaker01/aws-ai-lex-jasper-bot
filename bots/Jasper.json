@@ -4,31 +4,31 @@
   "intents": [
         {
             "intentVersion": "$LATEST", 
-            "intentName": "Hello"
+            "intentName": "Hello_Intent"
         }, 
         {
             "intentVersion": "$LATEST", 
-            "intentName": "Top"
+            "intentName": "Top_Intent"
         }, 
         {
             "intentVersion": "$LATEST", 
-            "intentName": "Compare"
+            "intentName": "Compare_Intent"
         }, 
         {
             "intentVersion": "$LATEST", 
-	    "intentName": "Count"
+	    "intentName": "Count_Intent"
         }, 
         {
             "intentVersion": "$LATEST", 
-            "intentName": "Refresh"
+            "intentName": "Refresh_Intent"
         }, 
         {
             "intentVersion": "$LATEST", 
-            "intentName": "Reset"
+            "intentName": "Reset_Intent"
         }, 
         {
             "intentVersion": "$LATEST", 
-            "intentName": "GoodBye"
+            "intentName": "GoodBye_Intent"
         }
   ], 
   "locale": "en-US",
