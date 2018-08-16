@@ -1,5 +1,5 @@
 {
-        "name": "cat_descX",
+        "name": "cat_desc",
         "description": "Categories of events in the TICKIT database",
         "valueSelectionStrategy": "ORIGINAL_VALUE", 
         "enumerationValues": [

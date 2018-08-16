@@ -1,5 +1,5 @@
 {
-        "name": "TopX",
+        "name": "Top",
         "description": "Intent identifier for top sales query",
         "enumerationValues": [
           { "value": "Top" }, 

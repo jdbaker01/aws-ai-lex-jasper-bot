@@ -1,5 +1,5 @@
 {
-        "name": "CompareX",
+        "name": "Compare",
         "description": "Recursively query the dataset",
         "sampleUtterances": [
             "{Compare} {Preposition} {one_event} {Versus} {another_event}", 
@@ -47,13 +47,13 @@
         "fulfillmentActivity": {
           "codeHook": {
             "messageVersion": "1.0",
-            "uri": "arn:aws:lambda:us-east-1:687551564203:function:JasperX"
+            "uri": "arn:aws:lambda:us-east-1:687551564203:function:Jasper"
           },
           "type": "CodeHook"
         },
         "slots": [
             {
-                "slotType": "CompareX", 
+                "slotType": "Compare", 
                 "name": "Compare", 
                 "slotConstraint": "Required", 
                 "valueElicitationPrompt": {
@@ -70,7 +70,7 @@
                 "sampleUtterances": []
             }, 
             {
-                "slotType": "VersusX", 
+                "slotType": "Versus", 
                 "name": "Versus", 
                 "slotConstraint": "Optional", 
                 "valueElicitationPrompt": {
@@ -87,7 +87,7 @@
                 "sampleUtterances": []
             }, 
             {
-                "slotType": "PrepositionX", 
+                "slotType": "Preposition", 
                 "name": "Preposition", 
                 "slotConstraint": "Optional", 
                 "valueElicitationPrompt": {
@@ -232,7 +232,7 @@
                 "sampleUtterances": []
             }, 
             {
-                "slotType": "event_nameX", 
+                "slotType": "event_name", 
                 "name": "one_event", 
                 "slotConstraint": "Optional", 
                 "valueElicitationPrompt": {
@@ -249,7 +249,7 @@
                 "sampleUtterances": []
             }, 
             {
-                "slotType": "event_nameX", 
+                "slotType": "event_name", 
                 "name": "another_event", 
                 "slotConstraint": "Optional", 
                 "valueElicitationPrompt": {
@@ -330,7 +330,7 @@
                 "sampleUtterances": []
             },
             {
-                "slotType": "cat_descX", 
+                "slotType": "cat_desc", 
                 "name": "one_category", 
                 "slotConstraint": "Optional", 
                 "valueElicitationPrompt": {
@@ -348,7 +348,7 @@
                 "description": "cat_desc"
             },
             {
-                "slotType": "cat_descX", 
+                "slotType": "cat_desc", 
                 "name": "another_category", 
                 "slotConstraint": "Optional", 
                 "valueElicitationPrompt": {
@@ -366,7 +366,7 @@
                 "description": "cat_desc"
             },
             {
-                "slotType": "cat_descX", 
+                "slotType": "cat_desc", 
                 "name": "cat_desc", 
                 "slotConstraint": "Optional", 
                 "valueElicitationPrompt": {

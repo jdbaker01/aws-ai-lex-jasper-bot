@@ -1,5 +1,5 @@
 { 
-        "name": "ResetX",
+        "name": "Reset",
         "description": "Intent identifier to reset remembered dimensions",
         "enumerationValues": [
           { "value": "Reset" }, 

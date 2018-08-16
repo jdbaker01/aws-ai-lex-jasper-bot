@@ -1,5 +1,5 @@
 {
-        "name": "RefreshX",
+        "name": "Refresh",
         "description": "Refresh dimesions from the database",
         "conclusionStatement": {
           "messages": [
@@ -12,7 +12,7 @@
         "fulfillmentActivity": {
           "codeHook": {
             "messageVersion": "1.0",
-            "uri": "arn:aws:lambda:us-east-1:687551564203:function:JasperX"
+            "uri": "arn:aws:lambda:us-east-1:687551564203:function:Jasper"
           },
           "type": "CodeHook"
         },
