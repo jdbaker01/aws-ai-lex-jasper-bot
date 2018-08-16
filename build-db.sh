@@ -37,6 +37,13 @@ else
 fi
 
 #
+# Copy the Redshift Spectrum sample data to your Athena bucket
+#
+echo "Copying sample data..."
+echo "aws s3 sync $SOURCE_DATA $ATHENA_BUCKET --source-region $SOURCE_DATA_REGION"
+aws s3 sync $SOURCE_DATA $ATHENA_BUCKET --source-region $SOURCE_DATA_REGION
+
+#
 # Delete TICKIT database if it exists
 #
 if aws glue get-database --name $ATHENA_DB >xxx 2>&1
@@ -50,15 +57,8 @@ fi
 # Create TICKIT database
 #
 echo "Creating Athena database $ATHENA_DB"
-echo "aws glue create-database --database-input "Name=$ATHENA_DB,Description=$ATHENA_DB_DESCRIPTION" >/dev/null"
+echo "aws glue create-database --database-input \"Name=$ATHENA_DB,Description=$ATHENA_DB_DESCRIPTION\" >/dev/null"
 aws glue create-database --database-input "Name=$ATHENA_DB,Description=$ATHENA_DB_DESCRIPTION" >/dev/null
-
-#
-# Copy the Redshift Spectrum sample data to your Athena bucket
-#
-echo "Copying sample data..."
-echo "aws s3 sync $SOURCE_DATA $ATHENA_BUCKET --source-region $SOURCE_DATA_REGION"
-aws s3 sync $SOURCE_DATA $ATHENA_BUCKET --source-region $SOURCE_DATA_REGION
 
 #
 # Create TICKIT users table in Athena
