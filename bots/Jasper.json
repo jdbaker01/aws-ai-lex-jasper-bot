@@ -4,31 +4,31 @@
   "intents": [
         {
             "intentVersion": "$LATEST", 
-            "intentName": "HelloX"
+            "intentName": "Hello"
         }, 
         {
             "intentVersion": "$LATEST", 
-            "intentName": "TopX"
+            "intentName": "Top"
         }, 
         {
             "intentVersion": "$LATEST", 
-            "intentName": "CompareX"
+            "intentName": "Compare"
         }, 
         {
             "intentVersion": "$LATEST", 
-	    "intentName": "CountX"
+	    "intentName": "Count"
         }, 
         {
             "intentVersion": "$LATEST", 
-            "intentName": "RefreshX"
+            "intentName": "Refresh"
         }, 
         {
             "intentVersion": "$LATEST", 
-            "intentName": "ResetX"
+            "intentName": "Reset"
         }, 
         {
             "intentVersion": "$LATEST", 
-            "intentName": "GoodByeX"
+            "intentName": "GoodBye"
         }
   ], 
   "locale": "en-US",

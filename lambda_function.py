@@ -634,9 +634,9 @@ def top_intent_handler(intent_request):
 # parameters for Refresh intent
 #
 REFRESH_QUERY = 'SELECT DISTINCT event_name from event ORDER BY event_name'
-REFRESH_SLOT = 'event_nameX'
-REFRESH_INTENT = 'CompareX'
-REFRESH_BOT = 'JasperX'
+REFRESH_SLOT = 'event_name'
+REFRESH_INTENT = 'Compare'
+REFRESH_BOT = 'Jasper'
 
 def refresh_intent_handler(intent_request):
     athena = boto3.client('athena')
@@ -927,13 +927,13 @@ def post_process_venue_name(value):
     return value
 
 INTENT_CONFIG = {
-    'HelloX':      {'handler': hello_intent_handler},
-    'CountX':      {'handler': count_intent_handler},
-    'CompareX':    {'handler': compare_intent_handler},
-    'TopX':        {'handler': top_intent_handler},
-    'ResetX':      {'handler': reset_intent_handler},
-    'RefreshX':    {'handler': refresh_intent_handler},
-    'GoodByeX':    {'handler': goodbye_intent_handler}
+    'Hello':      {'handler': hello_intent_handler},
+    'Count':      {'handler': count_intent_handler},
+    'Compare':    {'handler': compare_intent_handler},
+    'Top':        {'handler': top_intent_handler},
+    'Reset':      {'handler': reset_intent_handler},
+    'Refresh':    {'handler': refresh_intent_handler},
+    'GoodBye':    {'handler': goodbye_intent_handler}
 }
 
 DIMENSION_FORMATTERS = {
