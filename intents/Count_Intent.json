@@ -1,5 +1,5 @@
 {
-	"name": "Count",
+	"name": "Count_Intent",
         "description": "Recursively query the dataset",
         "conclusionStatement": {
           "messages": [

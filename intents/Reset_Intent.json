@@ -1,5 +1,5 @@
 {
-    "name": "Reset",
+    "name": "Reset_Intent",
     "description": "Tell Jasper to start over",
     "sampleUtterances": [
       "start over", 

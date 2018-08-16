@@ -1,5 +1,5 @@
 {
-    "name": "Top", 
+    "name": "Top_Intent", 
     "description": "Top five sales by dimension",
     "sampleUtterances": [
         "{Top} {count}", 

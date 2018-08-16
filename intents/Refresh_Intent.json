@@ -1,6 +1,6 @@
 {
-        "name": "Hello",
-        "description": "Say hey to Jasper",
+        "name": "Refresh_Intent",
+        "description": "Refresh dimesions from the database",
         "conclusionStatement": {
           "messages": [
             {
@@ -17,24 +17,11 @@
           "type": "CodeHook"
         },
         "sampleUtterances": [
-          "hello",
-          "hello Jasper",
-          "hello there",
-          "bro",
-          "dude",
-          "hey",
-          "hey bro",
-          "hey dude",
-          "hey man",
-          "hey there",
-          "hi",
-          "hi Jasper",
-          "hi there",
-          "Jasper",
-          "yo",
-          "yo dude",
-          "yo Jasper",
-          "you there"
+          "refresh",
+          "refresh your data",
+          "refresh the dimensions",
+          "refresh dimensions",
+          "refresh your data Jasper"
         ],
         "slots": [
         ]

@@ -927,13 +927,13 @@ def post_process_venue_name(value):
     return value
 
 INTENT_CONFIG = {
-    'Hello':      {'handler': hello_intent_handler},
-    'Count':      {'handler': count_intent_handler},
-    'Compare':    {'handler': compare_intent_handler},
-    'Top':        {'handler': top_intent_handler},
-    'Reset':      {'handler': reset_intent_handler},
-    'Refresh':    {'handler': refresh_intent_handler},
-    'GoodBye':    {'handler': goodbye_intent_handler}
+    'Hello_Intent':      {'handler': hello_intent_handler},
+    'Count_Intent':      {'handler': count_intent_handler},
+    'Compare_Intent':    {'handler': compare_intent_handler},
+    'Top_Intent':        {'handler': top_intent_handler},
+    'Reset_Intent':      {'handler': reset_intent_handler},
+    'Refresh_Intent':    {'handler': refresh_intent_handler},
+    'GoodBye_Intent':    {'handler': goodbye_intent_handler}
 }
 
 DIMENSION_FORMATTERS = {
