@@ -635,7 +635,7 @@ def top_intent_handler(intent_request):
 #
 REFRESH_QUERY = 'SELECT DISTINCT event_name from event ORDER BY event_name'
 REFRESH_SLOT = 'event_name'
-REFRESH_INTENT = 'Compare'
+REFRESH_INTENT = 'Compare_Intent'
 REFRESH_BOT = 'Jasper'
 
 def refresh_intent_handler(intent_request):
