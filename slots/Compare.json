@@ -1,5 +1,5 @@
 {
-        "name": "CompareX",
+        "name": "Compare",
         "description": "Intent identifier for compare sales query",
         "enumerationValues": [
           { "value": "Compare" },

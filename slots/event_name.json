@@ -1,5 +1,5 @@
 {
-        "name": "event_nameX",
+        "name": "event_name",
         "description": "Names of events in TICKIT database",
         "valueSelectionStrategy": "TOP_RESOLUTION", 
         "enumerationValues": [

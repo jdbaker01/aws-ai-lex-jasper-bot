@@ -1,5 +1,5 @@
 {
-        "name": "TicketSalesX",
+        "name": "TicketSales",
         "description": "Variations on the phrase: tickets sold",
         "enumerationValues": [
           { "value": "tickets sold" },

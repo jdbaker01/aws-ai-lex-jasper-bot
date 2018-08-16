@@ -1,5 +1,5 @@
 {
-        "name": "PrepositionX",
+        "name": "Preposition",
         "description": "In, for, at, and, between",
         "enumerationValues": [
           { "value": "at" },

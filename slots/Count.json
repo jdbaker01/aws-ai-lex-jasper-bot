@@ -1,5 +1,5 @@
 {
-        "name": "CountX",
+        "name": "Count",
         "description": "Intent identifier for the count sales query",
         "enumerationValues": [
 
