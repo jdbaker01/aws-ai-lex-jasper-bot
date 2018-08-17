@@ -19,15 +19,15 @@
 
 # deploy the Lambda intent handler
 echo "Creating Lambda handler function: $LAMBDA, Lambda execution role = $LAMBDA_ROLE_ARN"
-aws lambda create-function \\
-    --function-name $LAMBDA \\
-    --description "$LAMBDA Intent Handler" \\
-    --timeout 300 \\
+aws lambda create-function \
+    --function-name $LAMBDA \
+    --description "$LAMBDA Intent Handler" \
+    --timeout 300 \
     --zip-file fileb://JasperLambda.zip \\
-    --role $LAMBDA_ROLE_ARN \\
-    --handler lambda_function.lambda_handler \\
-    --runtime python3.6 \\
-    --environment "Variables={ATHENA_DB=$ATHENA_DB,ATHENA_OUTPUT_LOCATION=$ATHENA_OUTPUT_LOCATION}" \\
+    --role $LAMBDA_ROLE_ARN \
+    --handler lambda_function.lambda_handler \
+    --runtime python3.6 \
+    --environment "Variables={ATHENA_DB=$ATHENA_DB,ATHENA_OUTPUT_LOCATION=$ATHENA_OUTPUT_LOCATION}" \
     >/dev/null
 
 echo "Adding permission to invoke Lambda handler function $LAMBDA from Amazon Lex"
