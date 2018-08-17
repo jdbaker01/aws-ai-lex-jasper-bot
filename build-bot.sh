@@ -18,7 +18,8 @@
 #
 
 # deploy the Lambda intent handler
-echo "Creating Lambda handler function: $LAMBDA, Lambda execution role = $LAMBDA_ROLE_ARN"
+echo "Creating Lambda handler function: $LAMBDA"
+echo "Lambda execution role = $LAMBDA_ROLE_ARN"
 aws lambda create-function \
     --function-name $LAMBDA \
     --description "$LAMBDA Intent Handler" \
@@ -49,7 +50,6 @@ do
 	echo "Creating intent: $i"
         # substitute the ARN for the Lambda fulfullment function
         sed "s/{{lambda-arn}}/$LAMBDA_ARN/" intents/$i.json >intents/$i-updated.json
-        grep arn intents/$i-updated.json
 	aws lex-models put-intent --name $i --cli-input-json file://intents/$i-updated.json >/dev/null 
 done
 
