@@ -10,7 +10,6 @@
 # Environment variables to be set in the CodeBuild project
 #
 # $BOT		Name of the Lex bot
-# $ALIAS	Name of the published alias for the bot
 # $INTENTS      List of intent names for the bot
 # $SLOTS        List of slot type names for the bot
 # $LAMBDA       Name of the Lambda fulfillment function for the bot
@@ -23,18 +22,6 @@ if aws glue get-database --name $ATHENA_DB >xxx 2>&1
 then 
 	echo "Deleting Athena database $ATHENA_DB"
 	aws glue delete-database --name $ATHENA_DB >/dev/null
-fi
-
-# delete bot aliases -- fix this
-echo -n "Checking for existing bot alias $ALIAS... "
-if aws lex-models get-bot-alias --name $ALIAS --bot-name $BOT >/dev/null 2>&1
-then
-    echo "deleting."
-    sleep $SLEEP
-    aws lex-models delete-bot-alias --name $ALIAS --bot-name $BOT
-    sleep $SLEEP
-else
-    echo "not found."
 fi
 
 # delete the bot if it exists
