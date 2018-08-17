@@ -12,7 +12,6 @@
 # $INTENTS      		List of intent names for the bot
 # $SLOTS        		List of slot type names for the bot
 # $LAMBDA       		Name of the Lambda fulfillment function for the bot
-# $LAMBDA_ARN       		ARN for the Lambda fulfillment function
 # $LAMBDA_ROLE_ARN     		ARN for the Lambda execution role
 # $ATHENA_DB    		Name of the Athena database
 # $ATHENA_OUTPUT_LOCATION	Name of the S3 bucket for Athena output
@@ -30,6 +29,9 @@ aws lambda create-function \
     --runtime python3.6 \
     --environment "Variables={ATHENA_DB=$ATHENA_DB,ATHENA_OUTPUT_LOCATION=$ATHENA_OUTPUT_LOCATION}" \
     >/dev/null
+
+LAMBDA_ARN=`aws lambda get-function --function-name $LAMBDA | grep 'FunctionArn' | sed 's/.*FunctionArn": "\(.*\)".*/\1/'`
+echo "Lambda ARN = $LAMBDA_ARN"
 
 echo "Adding permission to invoke Lambda handler function $LAMBDA from Amazon Lex"
 aws lambda add-permission --function-name $LAMBDA --statement-id chatbot-fulfillment --action "lambda:InvokeFunction" --principal "lex.amazonaws.com" >/dev/null
