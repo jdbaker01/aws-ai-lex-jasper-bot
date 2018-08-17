@@ -60,10 +60,3 @@ then echo "Success: $BOT bot build complete."; exit 0
 else echo "Error: $BOT bot build failed, check the log for errors"; exit 1
 fi
 
-# create bot alias
-## echo "Creating bot alias: $ALIAS"
-## aws lex-models put-bot-alias --name $ALIAS --bot-name $BOT --bot-version '$LATEST' >/dev/null
-
-# refresh the bot
-## echo "Calling refresh intent"
-## aws lex-runtime post-text --bot-name $BOT --bot-alias jasper_bot --user-id a_user --input-text "refresh"
