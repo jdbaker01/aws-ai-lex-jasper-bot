@@ -12,6 +12,7 @@
 # $INTENTS      		List of intent names for the bot
 # $SLOTS        		List of slot type names for the bot
 # $LAMBDA       		Name of the Lambda fulfillment function for the bot
+# $LAMBDA_ARN       		ARN for the Lambda fulfillment function
 # $LAMBDA_ROLE_ARN     		ARN for the Lambda execution role
 # $ATHENA_DB    		Name of the Athena database
 # $ATHENA_OUTPUT_LOCATION	Name of the S3 bucket for Athena output
@@ -44,7 +45,9 @@ done
 for i in $INTENTS
 do
 	echo "Creating intent: $i"
-	aws lex-models put-intent --name $i --cli-input-json file://intents/$i.json >/dev/null 
+        # substitute the ARN for the Lambda fulfullment function
+        sed "s/{{lambda_arn}}/$LAMBDA_ARN/" intents/$i.json >intents/$i-updated.json
+	aws lex-models put-intent --name $i --cli-input-json file://intents/$i-updated.json >/dev/null 
 done
 
 # build the bot 
