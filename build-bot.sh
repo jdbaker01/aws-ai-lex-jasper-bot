@@ -31,7 +31,7 @@ aws lambda create-function \
     >/dev/null
 
 LAMBDA_ARN=`aws lambda get-function --function-name $LAMBDA | grep 'FunctionArn' | sed 's/.*FunctionArn": "\(.*\)".*/\1/'`
-echo "Lambda ARN = \'$LAMBDA_ARN\'"
+echo "Lambda ARN = '$LAMBDA_ARN'"
 
 echo "Adding permission to invoke Lambda handler function $LAMBDA from Amazon Lex"
 aws lambda add-permission --function-name $LAMBDA --statement-id chatbot-fulfillment --action "lambda:InvokeFunction" --principal "lex.amazonaws.com" >/dev/null
@@ -48,7 +48,7 @@ for i in $INTENTS
 do
 	echo "Creating intent: $i"
         # substitute the ARN for the Lambda fulfullment function
-        sed "s/{{lambda_arn}}/$LAMBDA_ARN/" intents/$i.json >intents/$i-updated.json
+        sed "s/{{lambda-arn}}/$LAMBDA_ARN/" intents/$i.json >intents/$i-updated.json
         grep arn intents/$i-updated.json
 	aws lex-models put-intent --name $i --cli-input-json file://intents/$i-updated.json >/dev/null 
 done
