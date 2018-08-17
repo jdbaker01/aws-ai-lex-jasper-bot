@@ -18,6 +18,14 @@
 
 SLEEP=2
 
+# Delete TICKIT database if it exists
+if aws glue get-database --name $ATHENA_DB >xxx 2>&1
+then 
+	echo "Deleting Athena database $ATHENA_DB"
+	echo "aws glue delete-database --name $ATHENA_DB >/dev/null"
+	aws glue delete-database --name $ATHENA_DB >/dev/null
+fi
+
 # delete bot aliases -- fix this
 ## echo "Deleting Bot alias: jasper_bot"
 echo -n "Checking for existing bot alias $ALIAS... "
