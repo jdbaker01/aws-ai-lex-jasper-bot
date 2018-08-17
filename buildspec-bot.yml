@@ -8,6 +8,7 @@ phases:
     commands:
       - echo Build started on `date`
       - python zip.py JasperLambda.zip lambda_function.py
+      - bash build-db.sh
       - bash delete-bot.sh
       - bash build-bot.sh
   post_build:
