@@ -23,7 +23,7 @@ aws lambda create-function \
     --function-name $LAMBDA \
     --description "$LAMBDA Intent Handler" \
     --timeout 300 \
-    --zip-file fileb://JasperLambda.zip \\
+    --zip-file fileb://JasperLambda.zip \
     --role $LAMBDA_ROLE_ARN \
     --handler lambda_function.lambda_handler \
     --runtime python3.6 \
