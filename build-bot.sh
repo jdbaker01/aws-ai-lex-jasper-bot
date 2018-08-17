@@ -12,12 +12,14 @@
 # $INTENTS      		List of intent names for the bot
 # $SLOTS        		List of slot type names for the bot
 # $LAMBDA       		Name of the Lambda fulfillment function for the bot
+# $LAMBDA_ROLE_ARN     		ARN for the Lambda execution role
 # $ATHENA_DB    		Name of the Athena database
 # $ATHENA_OUTPUT_LOCATION	Name of the S3 bucket for Athena output
 #
 
 # deploy the Lambda intent handler
 echo "Creating Lambda handler function: $LAMBDA"
+echo "Note: Lambda Execution Role = $LAMBDA_ROLE_ARN"
 aws lambda create-function --function-name $LAMBDA --description "$LAMBDA Intent Handler" --timeout 300 --zip-file fileb://JasperLambda.zip --role arn:aws:iam::687551564203:role/LambdaServiceRoleAthenaS3 --handler lambda_function.lambda_handler --runtime python3.6 --environment "Variables={ATHENA_DB=$ATHENA_DB,ATHENA_OUTPUT_LOCATION=$ATHENA_OUTPUT_LOCATION}" >/dev/null
 
 echo "Adding permission to invoke Lambda handler function $LAMBDA from Amazon Lex"
