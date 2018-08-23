@@ -8,6 +8,7 @@ phases:
     commands:
       - echo Build started on `date`
       - bash delete.sh
+      - bash delete-s3.sh
   post_build:
     commands:
       - echo Build completed on `date`
