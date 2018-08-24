@@ -28,7 +28,7 @@ fi
 echo -n "Checking for existing bot $BOT... " 
 if aws lex-models get-bot --name $BOT --version-or-alias '$LATEST' >/dev/null 2>&1
 then 
-    echo "deleting."
+    echo "deleting"
     sleep $SLEEP
     aws lex-models delete-bot --name $BOT
     sleep $SLEEP
@@ -42,7 +42,7 @@ do
     echo -n "Checking for existing intent $i... "
     if aws lex-models get-intent --name $i --intent-version '$LATEST' >/dev/null 2>&1
     then 
-        echo "deleting."
+        echo "deleting"
         sleep $SLEEP
         aws lex-models delete-intent --name $i
         sleep $SLEEP
@@ -57,7 +57,7 @@ do
     echo -n "Checking for existing slot type $i... "
     if aws lex-models get-slot-type --name $i --slot-type-version '$LATEST' >/dev/null 2>&1
     then 
-        echo "deleting."
+        echo "deleting"
         sleep $SLEEP
         aws lex-models delete-slot-type --name $i
         sleep $SLEEP
@@ -70,7 +70,7 @@ done
 echo -n "Checking for existing Lambda function $LAMBDA... "
 if aws lambda get-function --function-name $LAMBDA >/dev/null 2>&1
 then 
-    echo "deleting."
+    echo "deleting"
     sleep $SLEEP
     aws lambda delete-function --function-name $LAMBDA
     sleep $SLEEP
