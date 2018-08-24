@@ -47,7 +47,7 @@ do
         aws lex-models delete-intent --name $i
         sleep $SLEEP
     else
-        echo "not found."
+        echo "not found"
     fi
 done
 
@@ -62,7 +62,7 @@ do
         aws lex-models delete-slot-type --name $i
         sleep $SLEEP
     else
-        echo "not found."
+        echo "not found"
     fi
 done
  
@@ -75,5 +75,5 @@ then
     aws lambda delete-function --function-name $LAMBDA
     sleep $SLEEP
 else
-    echo "not found."
+    echo "not found"
 fi
