@@ -16,10 +16,13 @@
 
 echo "Deleting S3 bucket $ATHENA_BUCKET"
 aws s3 rm --recursive $ATHENA_BUCKET
+aws s3 rb --force $ATHENA_BUCKET
 
 echo "Deleting S3 bucket $ATHENA_OUTPUT_LOCATION"
 aws s3 rm --recursive $ATHENA_OUTPUT_LOCATION
+aws s3 rb --force $ATHENA_OUTPUT_LOCATION
 
 echo "Deleting S3 bucket $ARTIFACT_STORE"
 aws s3 rm --recursive $ARTIFACT_STORE
+aws s3 rb --force $ARTIFACT_STORE
 
