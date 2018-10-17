@@ -558,11 +558,11 @@ def top_intent_handler(intent_request):
     
     if result_count < int(slot_values.get('count', 0)):
         if result_count == 0:
-            response_string += "There aren't any " + slot_values.get('dimension') + " "
+            response_string += "There weren't any " + slot_values.get('dimension') + " "
         elif result_count == 1:
-            response_string += "There's only 1. "
+            response_string += "There was only 1. "
         else:
-            response_string += "There are only " + str(result_count) + ". "
+            response_string += "There were only " + str(result_count) + ". "
 
     if result_count == 0:
         pass
@@ -590,9 +590,9 @@ def top_intent_handler(intent_request):
     if result_count == 0:
         pass
     elif result_count == 1:
-        response_string += ' is '
+        response_string += ' was '
     else:
-        response_string += ' are '
+        response_string += ' were '
     
     # add the list of top X dimension values to the response text
     if result_count > 0:
