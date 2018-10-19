@@ -210,7 +210,6 @@ def switch_intent_handler(intent_request):
     except SlotError as err:
         return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': str(err)})   
 
-    response_string = '
     response_string = 'SWITCH: slot_values = {}'.format(slot_values)
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
