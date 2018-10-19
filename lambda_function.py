@@ -205,11 +205,13 @@ def switch_intent_handler(intent_request):
     session_attributes['finishedCount'] = '0'
     session_attributes['queryAttributes'] = None
 
+    slot_values = get_slot_values(None, intent_request)
+'''
     try:
         slot_values = get_slot_values(slot_values, intent_request)
     except SlotError as err:
         return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': str(err)})   
-
+'''
     response_string = 'SWITCH: slot_values = {}'.format(slot_values)
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
