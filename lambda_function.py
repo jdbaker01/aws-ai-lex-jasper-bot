@@ -199,6 +199,23 @@ def goodbye_intent_handler(intent_request):
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
 
+def switch_intent_handler(intent_request):
+    session_attributes['greetingCount'] = '0'
+    session_attributes['resetCount'] = '0'
+    session_attributes['finishedCount'] = '0'
+    session_attributes['queryAttributes'] = None
+
+    try:
+        slot_values = get_slot_values(slot_values, intent_request)
+    except SlotError as err:
+        return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': str(err)})   
+
+    response_string = '
+    response_string = 'SWITCH: slot_values = {}'.format(slot_values)
+
+    return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
+
+
 def count_intent_handler(intent_request):
     method_start = time.perf_counter()
     
@@ -932,6 +949,7 @@ INTENT_CONFIG = {
     'Compare_Intent':    {'handler': compare_intent_handler},
     'Top_Intent':        {'handler': top_intent_handler},
     'Reset_Intent':      {'handler': reset_intent_handler},
+    'Switch_Intent':     {'handler': switch_intent_handler},
     'Refresh_Intent':    {'handler': refresh_intent_handler},
     'GoodBye_Intent':    {'handler': goodbye_intent_handler}
 }
