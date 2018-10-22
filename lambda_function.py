@@ -118,7 +118,7 @@ def dispatch(intent_request):
 def hello_intent_handler(intent_request):
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
-    session_attributes['lastIntent'] = None
+    # don't alter session_attributes['lastIntent'], let Jasper remember the last used intent
 
     askCount = increment_counter(session_attributes, 'greetingCount')
     
@@ -136,7 +136,7 @@ def hello_intent_handler(intent_request):
 def reset_intent_handler(intent_request):
     session_attributes['greetingCount'] = '1'
     session_attributes['finishedCount'] = '0'
-    session_attributes['lastIntent'] = None
+    # don't alter session_attributes['lastIntent'], let Jasper remember the last used intent
 
     # Retrieve "remembered" slot values from session attributes
     slot_values = get_remembered_slot_values(None, session_attributes)
@@ -208,7 +208,7 @@ def switch_intent_handler(intent_request):
     session_attributes['finishedCount'] = '0'
     # note: do not alter session_attributes['lastIntent'] here
 
-    if session_attributes['lastIntent'] is not None:
+    if session_attributes.get('lastIntent', None) is not None:
         intent_name = session_attributes['lastIntent']
         if INTENT_CONFIG.get(intent_name, False):
             return INTENT_CONFIG[intent_name]['handler'](intent_request)    # dispatch to the event handler
