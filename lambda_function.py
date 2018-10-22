@@ -118,7 +118,7 @@ def dispatch(intent_request):
 def hello_intent_handler(intent_request):
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
-    session_attributes['lastIntent'] = 'Hello_Intent'
+    session_attributes['lastIntent'] = None
 
     askCount = increment_counter(session_attributes, 'greetingCount')
     
@@ -136,7 +136,7 @@ def hello_intent_handler(intent_request):
 def reset_intent_handler(intent_request):
     session_attributes['greetingCount'] = '1'
     session_attributes['finishedCount'] = '0'
-    session_attributes['lastIntent'] = 'Reset_Intent'
+    session_attributes['lastIntent'] = None
 
     # Retrieve "remembered" slot values from session attributes
     slot_values = get_remembered_slot_values(None, session_attributes)
@@ -187,7 +187,7 @@ def goodbye_intent_handler(intent_request):
     session_attributes['greetingCount'] = '0'
     session_attributes['resetCount'] = '0'
     session_attributes['queryAttributes'] = None
-    session_attributes['lastIntent'] = 'GoodBye_Intent'
+    session_attributes['lastIntent'] = None
 
     askCount = increment_counter(session_attributes, 'finishedCount')
 
@@ -206,13 +206,18 @@ def switch_intent_handler(intent_request):
     session_attributes['greetingCount'] = '0'
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
+    # note: do not alter session_attributes['lastIntent'] here
 
-    # session_attributes['lastIntent'] = 'Switch_Intent'   // do not do this
-
-    slot_values = get_slot_values(None, intent_request)
-    response_string = 'SWITCH: slot_values = {}'.format(slot_values)
-
-    return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
+    if session_attributes['lastIntent'] is not None:
+        intent_name = session_attributes['lastIntent']
+        if INTENT_CONFIG.get(intent_name, False):
+            return INTENT_CONFIG[intent_name]['handler'](intent_request)    # dispatch to the event handler
+        else:
+            return close(session_attributes, 'Fulfilled',
+                {'contentType': 'PlainText', 'content': 'Sorry, I don\'t support the intent called "' + intent_name + '".'})
+    else:
+        return close(session_attributes, 'Fulfilled',
+            {'contentType': 'PlainText', 'content': 'Sorry, I\'m not sure what you\'re asking me'})
 
 
 def count_intent_handler(intent_request):
@@ -659,7 +664,7 @@ REFRESH_BOT = 'Jasper'
 
 def refresh_intent_handler(intent_request):
     athena = boto3.client('athena')
-    session_attributes['lastIntent'] = 'Refresh_Intent'
+    session_attributes['lastIntent'] = None
 
     # Build and execute query
     logger.debug('<<Jasper>> Athena Query String = ' + REFRESH_QUERY)            
