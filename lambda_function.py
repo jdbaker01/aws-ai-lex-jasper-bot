@@ -217,7 +217,7 @@ def switch_intent_handler(intent_request):
                 {'contentType': 'PlainText', 'content': 'Sorry, I don\'t support the intent called "' + intent_name + '".'})
     else:
         return close(session_attributes, 'Fulfilled',
-            {'contentType': 'PlainText', 'content': 'Sorry, I\'m not sure what you\'re asking me'})
+            {'contentType': 'PlainText', 'content': 'Sorry, I\'m not sure what you\'re asking me.'})
 
 
 def count_intent_handler(intent_request):

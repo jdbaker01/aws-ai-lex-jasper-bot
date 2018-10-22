@@ -8,6 +8,9 @@
           { "value": "Difference between" },
           { "value": "Difference in sales" },
           { "value": "Increase in sales" },
-          { "value": "Decrease in sales" }
+          { "value": "Decrease in sales" },
+          { "value": "What about" },
+          { "value": "How about" },
+          { "value": "And" }
         ] 
 }  

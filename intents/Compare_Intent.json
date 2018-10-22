@@ -72,7 +72,7 @@
             {
                 "slotType": "Versus", 
                 "name": "Versus", 
-                "slotConstraint": "Optional", 
+                "slotConstraint": "Required", 
                 "valueElicitationPrompt": {
                     "maxAttempts": 2, 
                     "messages": [
