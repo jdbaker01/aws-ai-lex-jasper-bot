@@ -299,7 +299,7 @@ def compare_intent_handler(intent_request):
     session_attributes['greetingCount'] = '1'
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
-    session_attributes['lastIntent'] = 'Compare_Intent'
+    session_attributes['lastIntent'] = None    # "switch" handling done in Compare_Intent
 
     # Retrieve slot values from the current request
     slot_values = session_attributes.get('slot_values')
