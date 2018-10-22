@@ -118,6 +118,7 @@ def dispatch(intent_request):
 def hello_intent_handler(intent_request):
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
+    session_attributes['lastIntent'] = 'Hello_Intent'
 
     askCount = increment_counter(session_attributes, 'greetingCount')
     
@@ -135,7 +136,8 @@ def hello_intent_handler(intent_request):
 def reset_intent_handler(intent_request):
     session_attributes['greetingCount'] = '1'
     session_attributes['finishedCount'] = '0'
-    
+    session_attributes['lastIntent'] = 'Reset_Intent'
+
     # Retrieve "remembered" slot values from session attributes
     slot_values = get_remembered_slot_values(None, session_attributes)
 
@@ -185,6 +187,7 @@ def goodbye_intent_handler(intent_request):
     session_attributes['greetingCount'] = '0'
     session_attributes['resetCount'] = '0'
     session_attributes['queryAttributes'] = None
+    session_attributes['lastIntent'] = 'GoodBye_Intent'
 
     askCount = increment_counter(session_attributes, 'finishedCount')
 
@@ -203,7 +206,8 @@ def switch_intent_handler(intent_request):
     session_attributes['greetingCount'] = '0'
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
-    session_attributes['queryAttributes'] = None
+
+    # session_attributes['lastIntent'] = 'Switch_Intent'   // do not do this
 
     slot_values = get_slot_values(None, intent_request)
     response_string = 'SWITCH: slot_values = {}'.format(slot_values)
@@ -219,6 +223,7 @@ def count_intent_handler(intent_request):
     session_attributes['greetingCount'] = '1'
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
+    session_attributes['lastIntent'] = 'Count_Intent'
 
     # Retrieve slot values from the current request
     slot_values = session_attributes.get('slot_values')
@@ -289,7 +294,8 @@ def compare_intent_handler(intent_request):
     session_attributes['greetingCount'] = '1'
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
-    
+    session_attributes['lastIntent'] = 'Compare_Intent'
+
     # Retrieve slot values from the current request
     slot_values = session_attributes.get('slot_values')
     
@@ -468,6 +474,7 @@ def top_intent_handler(intent_request):
     session_attributes['greetingCount'] = '1'
     session_attributes['resetCount'] = '0'
     session_attributes['finishedCount'] = '0'
+    session_attributes['lastIntent'] = 'Top_Intent'
 
     # Retrieve slot values from the current request
     slot_values = session_attributes.get('slot_values')
@@ -652,6 +659,7 @@ REFRESH_BOT = 'Jasper'
 
 def refresh_intent_handler(intent_request):
     athena = boto3.client('athena')
+    session_attributes['lastIntent'] = 'Refresh_Intent'
 
     # Build and execute query
     logger.debug('<<Jasper>> Athena Query String = ' + REFRESH_QUERY)            

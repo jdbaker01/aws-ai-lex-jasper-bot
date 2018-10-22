@@ -2,16 +2,39 @@
     "name": "Switch_Intent",
     "description": "Change the latest dimension value",
     "sampleUtterances": [
+      "How about {event_name}", 
       "How about {event_month}", 
       "How about {venue_name}", 
       "How about {venue_city}", 
+      "How about {venue_city}, {venue_state}", 
       "How about {venue_state}", 
+      "How about {cat_desc}", 
+      "And for {event_name}", 
       "And for {event_month}", 
       "And for {venue_name}", 
       "And for {venue_city}", 
-      "And for {venue_state}"
+      "And for {venue_city}, {venue_state}", 
+      "And for {venue_state}", 
+      "And for {cat_desc}"
     ],
     "slots": [
+        {
+            "slotType": "event_name", 
+            "name": "event_name", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "event name", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 1, 
+            "slotTypeVersion": "$LATEST", 
+            "sampleUtterances": []
+        }, 
         {
             "slotType": "AMAZON.Month", 
             "name": "event_month", 
@@ -25,7 +48,7 @@
                     }
                 ]
             }, 
-            "priority": 1, 
+            "priority": 2, 
             "sampleUtterances": []
         }, 
         {
@@ -41,7 +64,7 @@
                     }
                 ]
             }, 
-            "priority": 2, 
+            "priority": 3, 
             "sampleUtterances": []
         }, 
         {
@@ -57,7 +80,7 @@
                     }
                 ]
             }, 
-            "priority": 3, 
+            "priority": 4, 
             "sampleUtterances": []
         }, 
         {
@@ -73,7 +96,24 @@
                     }
                 ]
             }, 
-            "priority": 4, 
+            "priority": 5, 
+            "sampleUtterances": []
+        },
+        {
+            "slotType": "cat_desc", 
+            "name": "cat_desc", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "category", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 6, 
+            "slotTypeVersion": "$LATEST", 
             "sampleUtterances": []
         }
     ],
