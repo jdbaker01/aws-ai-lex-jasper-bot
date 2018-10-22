@@ -1,6 +1,6 @@
 {
         "name": "Compare",
-        "description": "Intent identifier for compare sales query",
+        "description": "Intent identifier for compare query",
         "enumerationValues": [
           { "value": "Compare" },
           { "value": "Compare sales" },

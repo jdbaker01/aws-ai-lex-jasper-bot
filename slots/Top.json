@@ -1,6 +1,6 @@
 {
         "name": "Top",
-        "description": "Intent identifier for top sales query",
+        "description": "Intent identifier for top query",
         "enumerationValues": [
           { "value": "Top" }, 
           { "value": "What are the top" }, 

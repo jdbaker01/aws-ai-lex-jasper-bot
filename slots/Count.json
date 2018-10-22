@@ -1,6 +1,6 @@
 {
         "name": "Count",
-        "description": "Intent identifier for the count sales query",
+        "description": "Intent identifier for the count query",
         "enumerationValues": [
 
           { "value": "Please tell me how many tickets were sold" },

@@ -1,0 +1,9 @@
+{
+        "name": "WhatAbout",
+        "description": "Intent identifier for Switch intent",
+        "enumerationValues": [
+          { "value": "What about" }, 
+          { "value": "How about" }, 
+          { "value": "And" }
+        ]
+}
