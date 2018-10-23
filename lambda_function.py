@@ -443,9 +443,9 @@ def compare_intent_handler(intent_request):
 
         logger.debug('<<Jasper>> compare_intent_handler - result_set = %s', result_set) 
 
-        the_1st_dimension_string = result_set[the_1st_dimension_value][0]
+        the_1st_dimension_string = result_set[the_1st_dimension_value.lower()][0]
         the_1st_dimension_string = post_process_dimension_output(key, the_1st_dimension_string)
-        the_2nd_dimension_string = result_set[the_2nd_dimension_value][0]
+        the_2nd_dimension_string = result_set[the_2nd_dimension_value.lower()][0]
         the_2nd_dimension_string = post_process_dimension_output(key, the_2nd_dimension_string)
 
         if len(response_string) == 0:
@@ -453,8 +453,8 @@ def compare_intent_handler(intent_request):
         else:
             response_string += ', sales for ' + the_1st_dimension_string + ' were '
 
-        the_1st_amount = result_set[the_1st_dimension_value][1]
-        the_2nd_amount = result_set[the_2nd_dimension_value][1]
+        the_1st_amount = result_set[the_1st_dimension_value.lower()][1]
+        the_2nd_amount = result_set[the_2nd_dimension_value.lower()][1]
         
         the_1st_amount_formatted = '{:,.0f}'.format(the_1st_amount)
         the_2nd_amount_formatted = '{:,.0f}'.format(the_2nd_amount)
