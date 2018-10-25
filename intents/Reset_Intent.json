@@ -7,7 +7,7 @@
       "Reset {event_month}", 
       "Clear {venue_name}", 
       "Clear {event_name}", 
-      "Reset {dimension}", 
+      "Forget the {dimension}", 
       "Start over", 
       "Reset everything",
       "Reset"
