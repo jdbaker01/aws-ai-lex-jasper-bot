@@ -2,64 +2,19 @@
     "name": "Top_Intent", 
     "description": "Top five sales by dimension",
     "sampleUtterances": [
-        "{Top} {count}", 
-        "{Top} {dimension}", 
-        "{Top} {count} {dimension}", 
-        "{Top} {count} {dimension} for {event_name}", 
-        "{Top} {count} {dimension} in {event_month}", 
-        "{Top} {count} {dimension} at {venue_name}", 
-        "{Top} {count} {dimension} in {venue_city}", 
-        "{Top} {count} {dimension} in {venue_state}", 
-        "{Top} {count} {dimension} in {venue_city} {venue_state}", 
-        "{Top} {count} {dimension} for {cat_desc}", 
-
-        "{Top} {count} {dimension} for {event_name} in {event_month}",
-        "{Top} {count} {dimension} at {venue_name} in {event_month}",
-        "{Top} {count} {dimension} in {venue_city} in {event_month}",
-        "{Top} {count} {dimension} in {venue_city} {venue_state} in {event_month}",
-        "{Top} {count} {dimension} in {venue_state} in {event_month}",
-        "{Top} {count} {dimension} for {cat_desc} in {event_month}",
-
-        "{Top} {count} {dimension} for {event_name} in {venue_city}",
-        "{Top} {count} {dimension} in {event_month} in {venue_city}",
-        "{Top} {count} {dimension} at {venue_name} in {venue_city}",
-        "{Top} {count} {dimension} for {cat_desc} in {venue_city}",
-
-        "{Top} {count} {dimension} for {event_name} in {venue_state}",
-        "{Top} {count} {dimension} in {event_month} in {venue_state}",
-        "{Top} {count} {dimension} at {venue_name} in {venue_state}",
-        "{Top} {count} {dimension} in {venue_city} in {venue_state}",
-        "{Top} {count} {dimension} for {cat_desc} in {venue_state}",
-
-        "{Top} {count} {dimension} in {event_month} for {event_name}", 
-        "{Top} {count} {dimension} at {venue_name} for {event_name}", 
-        "{Top} {count} {dimension} in {venue_city} for {event_name}", 
-        "{Top} {count} {dimension} in {venue_state} for {event_name}", 
-        "{Top} {count} {dimension} in {venue_city} {venue_state} for {event_name}", 
-        "{Top} {count} {dimension} for {cat_desc} for {event_name}", 
-
-        "{Top} {count} {dimension} for {event_name} at {venue_name}", 
-        "{Top} {count} {dimension} in {event_month} at {venue_name}", 
-        "{Top} {count} {dimension} for {cat_desc} at {venue_name}"
+        "What were the top {count} {dimension} for {cat_desc}",
+        "Tell me the top {count} {dimension} in {venue_city} {venue_state}", 
+        "Top {count} {dimension} for {cat_desc}", 
+        "Top {count} {dimension} in {venue_state}", 
+        "Top {count} {dimension} in {venue_city}", 
+        "Top {count} {dimension} at {venue_name}", 
+        "Top {count} {dimension} in {event_month}", 
+        "Top {count} {dimension} for {event_name}", 
+        "Top {count} {dimension}", 
+        "Top {dimension}", 
+        "Top {count}"
     ], 
     "slots": [
-        {
-            "slotType": "Top", 
-            "name": "Top", 
-            "slotConstraint": "Required", 
-            "valueElicitationPrompt": {
-                "maxAttempts": 2, 
-                "messages": [
-                    {
-                        "content": "Top phrase", 
-                        "contentType": "PlainText"
-                    }
-                ]
-            }, 
-            "priority": 1, 
-            "slotTypeVersion": "$LATEST", 
-            "sampleUtterances": []
-        }, 
         {
             "slotType": "AMAZON.NUMBER", 
             "name": "count", 
@@ -73,7 +28,7 @@
                     }
                 ]
             }, 
-            "priority": 2, 
+            "priority": 1, 
             "sampleUtterances": []
         }, 
         {
@@ -89,7 +44,7 @@
                     }
                 ]
             }, 
-            "priority": 3, 
+            "priority": 2, 
             "slotTypeVersion": "$LATEST", 
             "sampleUtterances": []
         },
@@ -106,7 +61,7 @@
                     }
                 ]
             }, 
-            "priority": 4, 
+            "priority": 3, 
             "slotTypeVersion": "$LATEST", 
             "sampleUtterances": []
         }, 
@@ -123,7 +78,7 @@
                     }
                 ]
             }, 
-            "priority": 5, 
+            "priority": 4, 
             "sampleUtterances": []
         }, 
         {
@@ -139,7 +94,7 @@
                     }
                 ]
             }, 
-            "priority": 6, 
+            "priority": 5, 
             "sampleUtterances": []
         }, 
         {
@@ -155,7 +110,7 @@
                     }
                 ]
             }, 
-            "priority": 7, 
+            "priority": 6, 
             "sampleUtterances": []
         }, 
         {
@@ -171,7 +126,7 @@
                     }
                 ]
             }, 
-            "priority": 8, 
+            "priority": 7, 
             "sampleUtterances": []
         }, 
         {
@@ -187,7 +142,7 @@
                     }
                 ]
             }, 
-            "priority": 9, 
+            "priority": 8, 
             "slotTypeVersion": "$LATEST", 
             "sampleUtterances": []
         }

@@ -2,42 +2,17 @@
     "name": "Reset_Intent",
     "description": "Tell Jasper to start over",
     "sampleUtterances": [
-      "start over", 
-      "jasper start over", 
-      "ok start over jasper", 
-      "ok reset", 
-      "{Reset}", 
-      "{Reset} {dimension}", 
-      "{Reset} {event_month}", 
-      "{Reset} {venue_name}", 
-      "{Reset} {venue_city}", 
-      "{Reset} {venue_state}", 
-      "{Reset} everything", 
-      "{Reset} {dimension} jasper", 
-      "{Reset} {event_month} jasper", 
-      "{Reset} {venue_name} jasper", 
-      "{Reset} {venue_city} jasper", 
-      "{Reset} {venue_state} jasper",
-      "{Reset} everything jasper"
+      "Forget {venue_city} Jasper", 
+      "Forget about {venue_state}", 
+      "Reset {event_month}", 
+      "Clear {venue_name}", 
+      "Clear {event_name}", 
+      "Reset {dimension}", 
+      "Start over", 
+      "Reset everything",
+      "Reset"
     ],
     "slots": [
-        {
-            "slotType": "Reset", 
-            "name": "Reset", 
-            "slotConstraint": "Optional", 
-            "valueElicitationPrompt": {
-                "maxAttempts": 2, 
-                "messages": [
-                    {
-                        "content": "Reset phrase", 
-                        "contentType": "PlainText"
-                    }
-                ]
-            }, 
-            "priority": 1, 
-            "slotTypeVersion": "$LATEST", 
-            "sampleUtterances": []
-        }, 
         {
             "slotType": "dimensions", 
             "name": "dimension", 
@@ -51,7 +26,7 @@
                     }
                 ]
             }, 
-            "priority": 2, 
+            "priority": 1, 
             "slotTypeVersion": "$LATEST", 
             "sampleUtterances": []
         },
@@ -68,7 +43,7 @@
                     }
                 ]
             }, 
-            "priority": 3, 
+            "priority": 2, 
             "sampleUtterances": []
         }, 
         {
@@ -84,7 +59,7 @@
                     }
                 ]
             }, 
-            "priority": 4, 
+            "priority": 3, 
             "sampleUtterances": []
         }, 
         {
@@ -100,7 +75,7 @@
                     }
                 ]
             }, 
-            "priority": 5, 
+            "priority": 4, 
             "sampleUtterances": []
         }, 
         {
@@ -116,8 +91,26 @@
                     }
                 ]
             }, 
-            "priority": 6, 
+            "priority": 5, 
             "sampleUtterances": []
+        },
+        {
+            "slotType": "event_name", 
+            "name": "event_name", 
+            "slotConstraint": "Optional", 
+            "valueElicitationPrompt": {
+                "maxAttempts": 2, 
+                "messages": [
+                    {
+                        "content": "The name of the event", 
+                        "contentType": "PlainText"
+                    }
+                ]
+            }, 
+            "priority": 6, 
+            "slotTypeVersion": "$LATEST", 
+            "sampleUtterances": [], 
+            "description": "event_name"
         }
     ],
     "fulfillmentActivity": {

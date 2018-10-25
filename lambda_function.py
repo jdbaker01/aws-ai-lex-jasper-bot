@@ -170,7 +170,8 @@ def reset_intent_handler(intent_request):
                     logger.debug('<<Jasper>> reset_intent_handler() - forgetting slot %s value %s', key, slot_values[key])
                     slot_values[key] = None
                 else:
-                    message = "I wasn't remembering {} - {} anyway.".format(key, slots_to_reset.get(key))
+                    # message = "I wasn't remembering {} - {} anyway.".format(key, slots_to_reset.get(key))
+                    message = "I wasn't remembering {} anyway.".format(slots_to_reset.get(key))
                     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText', 'content': message})
 
     # check for special case, where the ask is to forget the dimension by name
@@ -210,6 +211,9 @@ def goodbye_intent_handler(intent_request):
     elif askCount == 4: response_string = 'See ya!'
     elif askCount == 5: response_string = 'Really?'
     else: response_string = 'Ok'
+
+    slot_values = {key: None for key in SLOT_CONFIG}
+    remember_slot_values(slot_values, session_attributes)
 
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
