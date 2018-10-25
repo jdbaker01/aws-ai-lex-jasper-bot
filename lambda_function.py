@@ -347,6 +347,10 @@ def compare_intent_handler(intent_request):
 
             break
 
+    # TODO: check for no dimension picked
+    # TODO: allow for refining prior comparisons just adding WHERE's - remember prior one vs another
+    # Check for minimum required slot values
+
     """
     Example Query:
         SELECT v.venue_city, SUM(s.amount) ticket_sales
@@ -361,6 +365,11 @@ def compare_intent_handler(intent_request):
          ORDER BY ticket_sales desc         
     """
 
+    # TODO: replace this whole thing with two independent queries, in case the
+    #       user specifies a partial venue name for example, the LIKE SQL will
+    #       work but the value will be different so you can't look it up in the
+    #       result_set dict with the inputted key
+    
     # Build and execute query
     select_clause = COMPARE_SELECT.format(DIMENSIONS[slot_values['dimension']]['column'])
     where_clause = COMPARE_JOIN
@@ -432,6 +441,10 @@ def compare_intent_handler(intent_request):
                              response['ResultSet']['Rows'][2]['Data'][0]['VarCharValue'],  
                              float(response['ResultSet']['Rows'][2]['Data'][1]['VarCharValue']) ] } )
 
+        # TODO: fix this.  Test case: top cities for chicago, compare sales for phoenix and new york (instead of new york city)
+        # TODO: problem - if you spell an event name incorrectly it may find it in the SQL
+        # query, but it will create an error in the result_set[] lookup
+
         logger.debug('<<Jasper>> compare_intent_handler - result_set = %s', result_set) 
 
         the_1st_dimension_string = result_set[the_1st_dimension_value.lower()][0]
@@ -476,6 +489,7 @@ def compare_intent_handler(intent_request):
 
 
 def top_intent_handler(intent_request):
+    # TODO: make this a decorator
     method_start = time.perf_counter()
     
     session_attributes['greetingCount'] = '1'
@@ -515,23 +529,41 @@ def top_intent_handler(intent_request):
     remember_slot_values(slot_values, session_attributes)
 
     # Check for minimum required slot values
+    # TODO test this
     if slot_values.get('dimension') is None:
         return close(session_attributes, 'Fulfilled',
             {'contentType': 'PlainText', 'content': "Sorry, I didn't understand that.  Try \"Top 5 venues for all rock and pop\"."})  
 
+    """
+    Example Query:
+        SELECT e.event_name, sum(s.amount) total_sales
+          FROM sales s, event e, venue v, category c, date_dim d
+         WHERE e.event_id = s.event_id
+           AND v.venue_id = e.venue_id
+           AND c.cat_id = e.cat_id
+           AND e.date_id = e.date_id
+           AND v.venue_state = 'CA'
+         GROUP BY e.event_name
+         ORDER BY total_sales desc limit 5
+    """
+
     # Build and execute query 
+    # TODO: (REPLACE WITH FUNCTION TAKES SELECT CLAUSE AS STRING PARAMETER?)
     try:
         # the SELECT clause is for a particular dimension e.g., top 5 {states}...
         # Example: "SELECT {}, SUM(s.amount) ticket_sales FROM sales s, event e, venue v, category c, date_dim ed  "
         select_clause = TOP_SELECT.format(DIMENSIONS.get(slot_values.get('dimension')).get('column'))
     except KeyError:
+        # TODO: is this necessary?
         return close(session_attributes, 'Fulfilled',
             {'contentType': 'PlainText', 'content': "Sorry, I don't know what you mean by " + slot_values['dimension']})
             
     # add JOIN clauses 
+    # Example: " WHERE e.event_id = s.event_id AND v.venue_id = e.venue_id AND c.cat_id = e.cat_id AND d.date_id = e.date_id "
     where_clause = TOP_JOIN
 
     # add WHERE clause for each non empty slot
+    # Example: " AND LOWER({}) LIKE LOWER('%{}%') " 
     for dimension in DIMENSIONS:
         slot_key = DIMENSIONS.get(dimension).get('slot')
         if slot_values[slot_key] is not None:
@@ -544,6 +576,7 @@ def top_intent_handler(intent_request):
         order_by_group_by = TOP_ORDERBY.format(DIMENSIONS.get(slot_values.get('dimension')).get('column'))
         order_by_group_by += " LIMIT {}".format(slot_values.get('count'))
     except KeyError:
+        # TODO: is this necessary?
         return close(
             session_attributes,
             'Fulfilled',
@@ -726,6 +759,8 @@ def refresh_intent_handler(intent_request):
                                      checksum=response['checksum']
                                     )
     
+    ## TODO: need to update all Intents that use the slot, to rev the version referenced.
+
     response = lex_models.get_bot(name=REFRESH_BOT, versionOrAlias='$LATEST')
     logger.debug('<<Jasper>> Lex bot = ' + pprint.pformat(response, indent=4)) 
     
@@ -744,11 +779,13 @@ def refresh_intent_handler(intent_request):
 
     logger.debug('<<Jasper>> Lex put bot = ' + pprint.pformat(response, indent=4)) 
 
+    # TODO: this seems to be building automatically based on that ^ parameter BUILD there.  Says: NOT_BUILT
     response_string = "I've refreshed the events dimension from the database.  Please rebuild me."
     return close(session_attributes, 'Fulfilled', {'contentType': 'PlainText','content': response_string})   
 
 
 def execute_athena_query(query_string):
+    # TODO: change this to a decorator
     start = time.perf_counter()
 
     athena = boto3.client('athena')
@@ -770,6 +807,8 @@ def execute_athena_query(query_string):
         if (status == 'RUNNING'):
             #logger.debug('<<Jasper>> query status = ' + status + ': sleep 200ms') 
             time.sleep(0.200)
+
+    # TODO: clean up files in Athena output bucket
 
     duration = time.perf_counter() - start
     duration_string = 'query duration = %.0f' % (duration * 1000) + ' ms'
@@ -838,6 +877,7 @@ def get_jasper_config():
     try:
         ATHENA_DB = os.environ['ATHENA_DB']
         ATHENA_OUTPUT_LOCATION = os.environ['ATHENA_OUTPUT_LOCATION']
+# BTY DELETE        str = os.environ['dimensions']
     except KeyError:
         return 'I have a configuration error - please set up the Athena database information.'
 
@@ -882,6 +922,7 @@ def pre_process_query_value(key, value):
         value = value.lower().replace('u. s.', 'us')
         value = value.lower().replace('u.s.', 'us')
     elif key == 'venue_state':
+        # TODO: CONFIRM IF THIS IS NEEDED HERE, SEE post_process below.  But this may be belt/suspenders
         value = US_STATES.get(value.lower(), value)
 
     logger.debug('<<Jasper>> pre_process_query_value() - returning key=%s, value=%s', key, value)
@@ -921,6 +962,7 @@ def get_month_name(value):
 
 
 def post_process_venue_name(value):
+    # TODO: get the value as it appears in the database
     if not isinstance(value, str): return value
     value = value.title().replace('Us ', 'US ')
     return value
